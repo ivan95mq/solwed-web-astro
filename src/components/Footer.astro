@@ -1,0 +1,128 @@
+---
+import Logo from './Logo.astro';
+import { STRIPE_PORTAL_URL } from '../lib/catalog';
+
+const quickLinks = [
+  { label: 'Precios', href: '/precios' },
+  { label: 'Proyectos', href: '/proyectos' },
+  { label: 'Contacto', href: '/contacto' },
+];
+
+const accountLinks = [
+  { label: 'Portal Cliente', href: STRIPE_PORTAL_URL },
+  { label: 'Gestionar suscripcion', href: STRIPE_PORTAL_URL },
+];
+
+const legalLinks = [
+  { label: 'Politica de Registro de Dominios', href: '/legal/registro-dominios' },
+  { label: 'Politica de cancelacion', href: '/legal/cancelacion' },
+  { label: 'Politicas de devolucion y reembolso', href: '/legal/devoluciones' },
+  { label: 'Politica de privacidad', href: '/legal/privacidad' },
+  { label: 'Politica de cookies (UE)', href: '/legal/cookies' },
+  { label: 'Terminos y condiciones', href: '/legal/terminos' },
+];
+
+const socialLinks = [
+  { name: 'Facebook', href: 'https://facebook.com/104035788867398' },
+  { name: 'LinkedIn', href: 'https://linkedin.com/company/81428841' },
+  { name: 'Google Maps', href: 'https://www.google.com/maps?cid=9604656484379762292' },
+  { name: 'Threads', href: 'https://threads.net/@solwed.es' },
+  { name: 'Instagram', href: 'https://www.instagram.com/solwed.es/' },
+  { name: 'X (Twitter)', href: 'https://twitter.com/@SolWed_es' },
+];
+
+const currentYear = new Date().getFullYear();
+---
+
+<footer class="border-t bg-section-dark">
+  <div class="container mx-auto px-4 py-12 md:py-16">
+    <div class="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-5">
+      <!-- Logo & Contact Info -->
+      <div class="space-y-4 lg:col-span-2">
+        <a href="/" class="inline-block">
+          <Logo class="w-32 h-auto" />
+        </a>
+        <p class="text-sm text-muted-foreground max-w-xs">
+          Tu departamento digital completo. Web, ERP, CRM, IA y mas por una cuota fija mensual.
+        </p>
+        <div class="space-y-2 text-sm text-muted-foreground">
+          <p>Camino viejo de Mirandilla S/N</p>
+          <p>06800 Merida, Badajoz</p>
+          <p class="pt-2">
+            <a href="mailto:hola@solwed.es" class="hover:text-primary transition-colors">
+              hola@solwed.es
+            </a>
+          </p>
+          <p>
+            <a href="tel:+34644831916" class="hover:text-primary transition-colors">
+              644 83 19 16
+            </a>
+          </p>
+        </div>
+        <!-- Social Media -->
+        <div class="flex flex-wrap gap-4 pt-2">
+          {socialLinks.map((social) => (
+            <a
+              href={social.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="text-muted-foreground hover:text-primary transition-colors text-sm"
+            >
+              {social.name}
+            </a>
+          ))}
+        </div>
+      </div>
+
+      <!-- Quick Links -->
+      <div class="space-y-4">
+        <h3 class="text-sm font-semibold">Navegacion</h3>
+        <ul class="space-y-2 text-sm">
+          {quickLinks.map((link) => (
+            <li>
+              <a href={link.href} class="text-muted-foreground hover:text-primary transition-colors">
+                {link.label}
+              </a>
+            </li>
+          ))}
+        </ul>
+        <h3 class="text-sm font-semibold pt-4">Tu cuenta</h3>
+        <ul class="space-y-2 text-sm">
+          {accountLinks.map((link) => (
+            <li>
+              <a
+                href={link.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="inline-flex items-center text-muted-foreground hover:text-primary transition-colors"
+              >
+                {link.label}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <!-- Legal Links -->
+      <div class="space-y-4 lg:col-span-2">
+        <h3 class="text-sm font-semibold">Legal</h3>
+        <ul class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-sm">
+          {legalLinks.map((link) => (
+            <li>
+              <a href={link.href} class="text-muted-foreground hover:text-primary transition-colors">
+                {link.label}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+
+    <!-- Bottom Bar -->
+    <div class="mt-12 border-t pt-8">
+      <p class="text-center text-sm text-muted-foreground">
+        &copy; {currentYear} SOLUTIONS WEBSITE DESIGN SLU (B55406862). Todos los derechos reservados.
+      </p>
+    </div>
+  </div>
+</footer>

@@ -1,0 +1,4 @@
+# Redirects para rutas dinamicas (nginx/Netlify/Cloudflare)
+/dashboard/*  /  301
+/admin/*  /  301
+/checkout/*  /precios  301

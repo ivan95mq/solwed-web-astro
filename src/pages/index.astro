@@ -1,16 +1,59 @@
 ---
+import MarketingLayout from '../layouts/MarketingLayout.astro';
+import { StarHero } from '../islands/StarHero';
+import ValueStrip from '../components/inicio/ValueStrip.astro';
+import ServicesBento from '../components/inicio/ServicesBento.astro';
+import { PricingShowcase } from '../islands/PricingShowcase';
+import WebDesignCTA from '../components/inicio/WebDesignCTA.astro';
+import { TrustSection } from '../islands/TrustSection';
+import { TestimonialsSection } from '../islands/TestimonialsSection';
+import { FAQSection } from '../islands/FAQSection';
+import FinalCTA from '../components/inicio/FinalCTA.astro';
+import { fetchTrustindexReviews } from '../lib/fetch-trustindex-reviews';
+import { TESTIMONIALS } from '../lib/testimonials';
 
+// Fetch reviews from Trustindex CDN at build time
+const trustindexData = await fetchTrustindexReviews();
+const testimonials = trustindexData?.reviews.length
+  ? trustindexData.reviews
+  : TESTIMONIALS;
+const rating = trustindexData?.rating ?? 5;
+const totalReviews = trustindexData?.totalReviews ?? 50;
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<MarketingLayout
+  title="SOLWED | Tu Departamento Digital Completo por 150€/mes"
+  description="Web + ERP + CRM + IA + Hosting. Todo incluido, sin permanencia. Primer mes GRATIS con codigo de socio."
+>
+  <!-- Hero - Star product focus -->
+  <StarHero client:load />
+
+  <!-- Value proposition strip -->
+  <ValueStrip />
+
+  <!-- All included services in bento grid -->
+  <ServicesBento />
+
+  <!-- Pricing with toggle -->
+  <PricingShowcase client:visible />
+
+  <!-- Custom web design CTA -->
+  <WebDesignCTA />
+
+  <!-- Trust signals and stats -->
+  <TrustSection client:visible />
+
+  <!-- Testimonials carousel -->
+  <TestimonialsSection
+    client:visible
+    testimonials={testimonials}
+    rating={rating}
+    totalReviews={totalReviews}
+  />
+
+  <!-- FAQ Section -->
+  <FAQSection client:visible />
+
+  <!-- Final conversion CTA -->
+  <FinalCTA />
+</MarketingLayout>

@@ -1,0 +1,22 @@
+---
+import Layout from './Layout.astro';
+import { Header } from '../islands/Header';
+import Footer from '../components/Footer.astro';
+import FloatingContactButton from '../components/shared/FloatingContactButton.astro';
+
+interface Props {
+  title: string;
+  description?: string;
+}
+
+const { title, description } = Astro.props;
+---
+
+<Layout title={title} description={description}>
+  <Header client:load />
+  <main>
+    <slot />
+  </main>
+  <Footer />
+  <FloatingContactButton />
+</Layout>
