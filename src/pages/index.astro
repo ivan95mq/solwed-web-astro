@@ -6,19 +6,9 @@ import ServicesBento from '../components/inicio/ServicesBento.astro';
 import { PricingShowcase } from '../islands/PricingShowcase';
 import WebDesignCTA from '../components/inicio/WebDesignCTA.astro';
 import { TrustSection } from '../islands/TrustSection';
-import { TestimonialsSection } from '../islands/TestimonialsSection';
+import GoogleReviews from '../components/inicio/GoogleReviews.astro';
 import { FAQSection } from '../islands/FAQSection';
 import FinalCTA from '../components/inicio/FinalCTA.astro';
-import { fetchTrustindexReviews } from '../lib/fetch-trustindex-reviews';
-import { TESTIMONIALS } from '../lib/testimonials';
-
-// Fetch reviews from Trustindex CDN at build time
-const trustindexData = await fetchTrustindexReviews();
-const testimonials = trustindexData?.reviews.length
-  ? trustindexData.reviews
-  : TESTIMONIALS;
-const rating = trustindexData?.rating ?? 5;
-const totalReviews = trustindexData?.totalReviews ?? 50;
 ---
 
 <MarketingLayout
@@ -43,13 +33,8 @@ const totalReviews = trustindexData?.totalReviews ?? 50;
   <!-- Trust signals and stats -->
   <TrustSection client:visible />
 
-  <!-- Testimonials carousel -->
-  <TestimonialsSection
-    client:visible
-    testimonials={testimonials}
-    rating={rating}
-    totalReviews={totalReviews}
-  />
+  <!-- Google Reviews -->
+  <GoogleReviews />
 
   <!-- FAQ Section -->
   <FAQSection client:visible />
