@@ -1,0 +1,24 @@
+name: Deploy to dev.solwed.es
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Deploy to VPS
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: 54.37.230.9
+          username: ubuntu
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            cd /home/ubuntu/solwed-web-astro
+            git pull origin main
+            pnpm install --frozen-lockfile
+            pm2 restart solwed-dev
+            echo "✅ Deployed to dev.solwed.es"
