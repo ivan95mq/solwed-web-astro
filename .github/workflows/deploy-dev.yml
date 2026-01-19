@@ -3,7 +3,7 @@ name: Deploy to dev.solwed.es
 on:
   push:
     branches:
-      - main
+      - master
 
 jobs:
   deploy:
@@ -18,7 +18,7 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
             cd /home/ubuntu/solwed-web-astro
-            git pull origin main
+            git pull origin master
             pnpm install --frozen-lockfile
             pm2 restart solwed-dev
             echo "✅ Deployed to dev.solwed.es"
