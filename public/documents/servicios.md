@@ -17,7 +17,7 @@ Actualizado: 09/01/2026
 | **Email Starter** | [4,89€](https://buy.stripe.com/4gM8wP2UMagSbz79imco00X) | [48,90€](https://buy.stripe.com/8x23cvcvm3Su46F8eico013) |
 | **Email Business** | [14,89€](https://buy.stripe.com/fZubJ19jabkW46F1PUco00Y) | [148,90€](https://buy.stripe.com/6oUdR9fHyex8dHfbquco014) |
 | **Email Unlimited** | [29,89€](https://buy.stripe.com/6oU6oHdzq3SufPn2TYco00Z) | [298,90€](https://buy.stripe.com/3cI00jeDufBc7iRgKOco015) |
-| **Web + Correos Pro** | [35€](https://buy.stripe.com/fZu5kD7b23Su46Famqco016) | [350€](https://buy.stripe.com/bJefZh1QIex8cDbdyCco017) |
+| **Web + Correos Pro** | [34,96€](https://buy.stripe.com/6oU3cv7b2agS6eN526co02G) | [349,60€](https://buy.stripe.com/3cI14n66Ydt47iRgKOco02H) |
 | **Web + Email Starter** | [14,78€](https://buy.stripe.com/4gMeVd2UM74G5aJ7aeco027) | [147,80€](https://buy.stripe.com/bJecN52UMdt4cDb526co028) |
 | **Web Pro + ERP** | [39,78€](https://buy.stripe.com/8x25kD7b2cp0dHf9imco029) | [397,80€](https://buy.stripe.com/6oU8wP9ja3SueLjgKOco02a) |
 
@@ -459,9 +459,9 @@ Pack completo de digitalizacion para pymes
 ✅ WordPress Pro + Email Business
 ✅ Pack combinado con descuento
 
-💰 *35€/mes* | *350€/año*
-📲 Mensual: https://buy.stripe.com/fZu5kD7b23Su46Famqco016
-📲 Anual: https://buy.stripe.com/bJefZh1QIex8cDbdyCco017
+💰 *34,96€/mes* | *349,60€/año*
+📲 Mensual: https://buy.stripe.com/6oU3cv7b2agS6eN526co02G
+📲 Anual: https://buy.stripe.com/3cI14n66Ydt47iRgKOco02H
 ```
 
 ```

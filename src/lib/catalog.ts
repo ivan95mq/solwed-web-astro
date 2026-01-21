@@ -34,6 +34,22 @@ const PAYMENT_LINKS = {
   // Extras
   DOMINIO: 'https://buy.stripe.com/aFadR91QI3SueLjamqco00s',
   SOPORTE_PREMIUM: 'https://buy.stripe.com/9B67sLcvm74G9qZ66aco00W',
+  // Email - Monthly
+  EMAIL_STARTER_MENSUAL: 'https://buy.stripe.com/4gM8wP2UMagSbz79imco00X',
+  EMAIL_BUSINESS_MENSUAL: 'https://buy.stripe.com/fZubJ19jabkW46F1PUco00Y',
+  EMAIL_UNLIMITED_MENSUAL: 'https://buy.stripe.com/6oU6oHdzq3SufPn2TYco00Z',
+  // Email - Annual
+  EMAIL_STARTER_ANUAL: 'https://buy.stripe.com/8x23cvcvm3Su46F8eico013',
+  EMAIL_BUSINESS_ANUAL: 'https://buy.stripe.com/6oUdR9fHyex8dHfbquco014',
+  EMAIL_UNLIMITED_ANUAL: 'https://buy.stripe.com/3cI00jeDufBc7iRgKOco015',
+  // Packs combinados - Monthly
+  WEB_CORREOS_PRO_MENSUAL: 'https://buy.stripe.com/6oU3cv7b2agS6eN526co02G',
+  WEB_EMAIL_STARTER_MENSUAL: 'https://buy.stripe.com/4gMeVd2UM74G5aJ7aeco027',
+  WEB_PRO_ERP_MENSUAL: 'https://buy.stripe.com/8x25kD7b2cp0dHf9imco029',
+  // Packs combinados - Annual
+  WEB_CORREOS_PRO_ANUAL: 'https://buy.stripe.com/3cI14n66Ydt47iRgKOco02H',
+  WEB_EMAIL_STARTER_ANUAL: 'https://buy.stripe.com/bJecN52UMdt4cDb526co028',
+  WEB_PRO_ERP_ANUAL: 'https://buy.stripe.com/6oU8wP9ja3SueLjgKOco02a',
 } as const
 
 // ============================================================================
@@ -54,7 +70,7 @@ export interface Product {
   name: string
   tagline: string
   description: string
-  category: 'star' | 'hosting' | 'erp' | 'addon'
+  category: 'star' | 'hosting' | 'erp' | 'email' | 'pack' | 'addon'
   isStar?: boolean
   badge?: string
   pricing: {
@@ -173,8 +189,8 @@ export const STAR_PRODUCT: Product = {
 export const HOSTING_PLANS: Product[] = [
   {
     id: 'hosting-starter',
-    slug: 'wordpress-starter',
-    name: 'WordPress Starter',
+    slug: 'web-wordpress-starter',
+    name: 'Web WordPress Starter',
     tagline: 'Perfecto para empezar',
     description: 'Hosting WordPress gestionado con soporte técnico incluido.',
     category: 'hosting',
@@ -194,20 +210,19 @@ export const HOSTING_PLANS: Product[] = [
       },
     },
     features: [
-      '1 sitio WordPress',
+      'Potencia estándar',
       '5GB de almacenamiento',
       'Certificado SSL gratuito',
-      'Backups semanales',
-      'Panel de control intuitivo',
+      'Backups diarios',
       'Actualizaciones automáticas',
-      'Soporte técnico por email',
+      'Soporte por email/tickets',
       'Migración gratuita',
     ],
   },
   {
     id: 'hosting-pro',
-    slug: 'wordpress-pro',
-    name: 'WordPress Pro',
+    slug: 'web-wordpress-pro',
+    name: 'Web WordPress Pro',
     tagline: 'Para negocios en crecimiento',
     description: 'Más recursos y funcionalidades avanzadas.',
     category: 'hosting',
@@ -228,21 +243,20 @@ export const HOSTING_PLANS: Product[] = [
       },
     },
     features: [
-      '3 sitios WordPress',
+      'Potencia avanzada',
       '15GB de almacenamiento',
       'Certificado SSL gratuito',
       'Backups diarios',
-      'Entorno staging',
-      'Panel de control intuitivo',
+      'Entorno staging (pruebas)',
       'Actualizaciones automáticas',
-      'Soporte técnico prioritario',
+      'Soporte por email/tickets',
       'Migración gratuita',
     ],
   },
   {
     id: 'hosting-vps',
-    slug: 'wordpress-vps',
-    name: 'WordPress VPS',
+    slug: 'web-wordpress-vps',
+    name: 'Web WordPress VPS',
     tagline: 'Máximo rendimiento',
     description: 'Recursos dedicados para proyectos exigentes.',
     category: 'hosting',
@@ -262,14 +276,14 @@ export const HOSTING_PLANS: Product[] = [
       },
     },
     features: [
-      'Sitios ilimitados',
+      'Potencia dedicada',
       '50GB SSD dedicado',
       'Certificado SSL gratuito',
       'Backups diarios',
-      'Entorno staging',
+      'Entorno staging (pruebas)',
+      'CDN incluido',
       'Recursos dedicados',
-      'Panel de control avanzado',
-      'Soporte técnico premium',
+      'Soporte por email/tickets',
       'Migración gratuita',
     ],
   },
@@ -303,14 +317,14 @@ export const ERP_PLANS: Product[] = [
       },
     },
     features: [
-      '1 usuario',
-      'Facturación básica',
-      'Informes estándar',
+      'Facturación electrónica + Verifactu',
+      'Presupuestos',
+      'Inventario básico',
+      'Contabilidad básica',
+      'Informes básicos',
       'Portal personalizado (tuempresa.erpsolwed.es)',
-      'Certificado SSL',
-      'Backups automáticos diarios',
-      'Actualizaciones del sistema',
-      'Soporte técnico por email',
+      'Backups diarios',
+      'Soporte por email/tickets',
     ],
   },
   {
@@ -337,14 +351,15 @@ export const ERP_PLANS: Product[] = [
       },
     },
     features: [
-      '3 usuarios',
-      'Inventario y almacén',
-      'Contabilidad integrada',
-      'TPV (Terminal Punto de Venta)',
-      'Portal personalizado',
-      'Certificado SSL',
-      'Backups automáticos diarios',
-      'Soporte técnico prioritario',
+      'Todo de Principiante +',
+      'Inventario y almacén completo',
+      'Contabilidad avanzada',
+      'Informes avanzados',
+      'TPV (Punto de Venta)',
+      'Recursos Humanos',
+      'Edición de plantillas de facturas',
+      'Remesas bancarias',
+      'Soporte por email/tickets',
     ],
   },
   {
@@ -370,14 +385,14 @@ export const ERP_PLANS: Product[] = [
       },
     },
     features: [
-      'Usuarios ilimitados',
+      'Todo de Estándar +',
+      'Conciliación bancaria',
+      'Firmas digitales',
+      'Portal del cliente',
       'Multi-empresa',
-      'API completa',
-      'Integraciones avanzadas',
-      'Inventario y almacén',
-      'Contabilidad integrada',
-      'TPV avanzado',
-      'Soporte técnico premium',
+      'API / Integraciones',
+      'Recursos dedicados',
+      'Soporte por email/tickets',
     ],
   },
 ]
@@ -431,6 +446,211 @@ export const ADDON_SERVICES: Product[] = [
       'Consultas ilimitadas',
       'Tiempo de respuesta < 4h',
       'Llamadas de seguimiento',
+    ],
+  },
+]
+
+// ============================================================================
+// EMAIL PLANS
+// ============================================================================
+
+export const EMAIL_PLANS: Product[] = [
+  {
+    id: 'email-starter',
+    slug: 'email-starter',
+    name: 'Email Starter',
+    tagline: 'Para empezar',
+    description: 'Correo electrónico profesional con tu dominio. Servidor dedicado en Europa.',
+    category: 'email',
+    pricing: {
+      monthly: {
+        price: 4.89,
+        priceWithTax: 5.92,
+        period: 'mes',
+        stripeLink: PAYMENT_LINKS.EMAIL_STARTER_MENSUAL,
+      },
+      annual: {
+        price: 48.90,
+        priceWithTax: 59.17,
+        period: 'año',
+        stripeLink: PAYMENT_LINKS.EMAIL_STARTER_ANUAL,
+        savings: '2 meses gratis',
+      },
+    },
+    features: [
+      '5 buzones de correo',
+      '10GB por buzón',
+      'IMAP/POP3/SMTP',
+      'SSL/TLS seguro',
+      'Webmail incluido',
+      'Antispam/Antivirus',
+      'Alias ilimitados',
+      'Autoresponders',
+      'Soporte por email',
+    ],
+  },
+  {
+    id: 'email-business',
+    slug: 'email-business',
+    name: 'Email Business',
+    tagline: 'Para equipos',
+    description: 'Más buzones y almacenamiento para empresas en crecimiento.',
+    category: 'email',
+    badge: 'Popular',
+    pricing: {
+      monthly: {
+        price: 14.89,
+        priceWithTax: 18.02,
+        period: 'mes',
+        stripeLink: PAYMENT_LINKS.EMAIL_BUSINESS_MENSUAL,
+      },
+      annual: {
+        price: 148.90,
+        priceWithTax: 180.17,
+        period: 'año',
+        stripeLink: PAYMENT_LINKS.EMAIL_BUSINESS_ANUAL,
+        savings: '2 meses gratis',
+      },
+    },
+    features: [
+      '15 buzones de correo',
+      '20GB por buzón',
+      'IMAP/POP3/SMTP',
+      'SSL/TLS seguro',
+      'Webmail incluido',
+      'Antispam/Antivirus',
+      'Alias ilimitados',
+      'Autoresponders',
+      'Soporte por email + chat',
+    ],
+  },
+  {
+    id: 'email-unlimited',
+    slug: 'email-unlimited',
+    name: 'Email Unlimited',
+    tagline: 'Sin límites',
+    description: 'Buzones ilimitados con máximo almacenamiento.',
+    category: 'email',
+    pricing: {
+      monthly: {
+        price: 29.89,
+        priceWithTax: 36.17,
+        period: 'mes',
+        stripeLink: PAYMENT_LINKS.EMAIL_UNLIMITED_MENSUAL,
+      },
+      annual: {
+        price: 298.90,
+        priceWithTax: 361.67,
+        period: 'año',
+        stripeLink: PAYMENT_LINKS.EMAIL_UNLIMITED_ANUAL,
+        savings: '2 meses gratis',
+      },
+    },
+    features: [
+      'Buzones ilimitados',
+      '50GB por buzón',
+      'IMAP/POP3/SMTP',
+      'SSL/TLS seguro',
+      'Webmail incluido',
+      'Antispam/Antivirus',
+      'Alias ilimitados',
+      'Autoresponders',
+      'Soporte prioritario',
+    ],
+  },
+]
+
+// ============================================================================
+// PACKS COMBINADOS
+// ============================================================================
+
+export const PACK_PLANS: Product[] = [
+  {
+    id: 'web-email-starter',
+    slug: 'web-email-starter',
+    name: 'Web + Email Starter',
+    tagline: 'Pack básico',
+    description: 'WordPress Starter + Email Starter combinados con descuento.',
+    category: 'pack',
+    pricing: {
+      monthly: {
+        price: 14.78,
+        priceWithTax: 17.88,
+        period: 'mes',
+        stripeLink: PAYMENT_LINKS.WEB_EMAIL_STARTER_MENSUAL,
+      },
+      annual: {
+        price: 147.80,
+        priceWithTax: 178.84,
+        period: 'año',
+        stripeLink: PAYMENT_LINKS.WEB_EMAIL_STARTER_ANUAL,
+        savings: '2 meses gratis',
+      },
+    },
+    features: [
+      'WordPress Starter (5GB, SSL, Backups)',
+      'Email Starter (5 buzones, 10GB)',
+      'Webmail + Antispam',
+      'Soporte por email/tickets',
+    ],
+  },
+  {
+    id: 'web-correos-pro',
+    slug: 'web-correos-pro',
+    name: 'Web + Correos Pro',
+    tagline: 'Pack profesional',
+    description: 'WordPress Pro + Email Business combinados con descuento.',
+    category: 'pack',
+    badge: 'Mejor valor',
+    pricing: {
+      monthly: {
+        price: 34.96,
+        priceWithTax: 42.30,
+        period: 'mes',
+        stripeLink: PAYMENT_LINKS.WEB_CORREOS_PRO_MENSUAL,
+      },
+      annual: {
+        price: 349.60,
+        priceWithTax: 423.02,
+        period: 'año',
+        stripeLink: PAYMENT_LINKS.WEB_CORREOS_PRO_ANUAL,
+        savings: '2 meses gratis',
+      },
+    },
+    features: [
+      'WordPress Pro (15GB, Staging, SSL)',
+      'Email Business (15 buzones, 20GB)',
+      'Webmail + Antispam',
+      'Soporte prioritario',
+    ],
+  },
+  {
+    id: 'web-pro-erp',
+    slug: 'web-pro-erp',
+    name: 'Web Pro + ERP',
+    tagline: 'Pack completo',
+    description: 'WordPress Pro + ERP Estándar combinados con descuento.',
+    category: 'pack',
+    pricing: {
+      monthly: {
+        price: 39.78,
+        priceWithTax: 48.13,
+        period: 'mes',
+        stripeLink: PAYMENT_LINKS.WEB_PRO_ERP_MENSUAL,
+      },
+      annual: {
+        price: 397.80,
+        priceWithTax: 481.34,
+        period: 'año',
+        stripeLink: PAYMENT_LINKS.WEB_PRO_ERP_ANUAL,
+        savings: '2 meses gratis',
+      },
+    },
+    features: [
+      'WordPress Pro (15GB, Staging, SSL)',
+      'ERP Estándar (Verifactu, TPV, RRHH)',
+      'Facturación electrónica',
+      'Soporte por email/tickets',
     ],
   },
 ]
@@ -504,6 +724,8 @@ export const getAllProducts = (): Product[] => [
   STAR_PRODUCT,
   ...HOSTING_PLANS,
   ...ERP_PLANS,
+  ...EMAIL_PLANS,
+  ...PACK_PLANS,
   ...ADDON_SERVICES,
 ]
 
