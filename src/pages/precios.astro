@@ -1,7 +1,8 @@
 ---
 import MarketingLayout from '../layouts/MarketingLayout.astro';
-import { STAR_PRODUCT, HOSTING_PLANS, ERP_PLANS, EMAIL_PLANS, PACK_PLANS, ADDON_SERVICES } from '../lib/catalog';
+import { STAR_PRODUCT, HOSTING_PLANS, ERP_PLANS, EMAIL_PLANS, ADDON_SERVICES } from '../lib/catalog';
 import { PricingCard, StarProductCard } from '../islands/PricingCard';
+import FloatingCart from '../islands/FloatingCart';
 ---
 
 <MarketingLayout
@@ -32,11 +33,12 @@ import { PricingCard, StarProductCard } from '../islands/PricingCard';
           tagline={STAR_PRODUCT.tagline}
           monthlyPrice={STAR_PRODUCT.pricing.monthly?.price || 0}
           annualPrice={STAR_PRODUCT.pricing.annual?.price || 0}
-          monthlyLink={STAR_PRODUCT.pricing.monthly?.stripeLink || ''}
-          annualLink={STAR_PRODUCT.pricing.annual?.stripeLink || ''}
           annualSavings={STAR_PRODUCT.pricing.annual?.savings || ''}
           features={STAR_PRODUCT.features}
           includedServices={STAR_PRODUCT.includedServices || []}
+          productId={STAR_PRODUCT.id}
+          priceWithTaxMonthly={STAR_PRODUCT.pricing.monthly?.priceWithTax || 0}
+          priceWithTaxAnnual={STAR_PRODUCT.pricing.annual?.priceWithTax || 0}
         />
       </div>
 
@@ -57,8 +59,9 @@ import { PricingCard, StarProductCard } from '../islands/PricingCard';
                 badge={plan.badge}
                 monthlyPrice={plan.pricing.monthly?.price}
                 annualPrice={plan.pricing.annual?.price}
-                monthlyLink={plan.pricing.monthly?.stripeLink}
-                annualLink={plan.pricing.annual?.stripeLink}
+                productId={plan.id}
+                priceWithTaxMonthly={plan.pricing.monthly?.priceWithTax}
+                priceWithTaxAnnual={plan.pricing.annual?.priceWithTax}
                 features={plan.features}
                 delay={index}
               />
@@ -81,8 +84,9 @@ import { PricingCard, StarProductCard } from '../islands/PricingCard';
                 badge={plan.badge}
                 monthlyPrice={plan.pricing.monthly?.price}
                 annualPrice={plan.pricing.annual?.price}
-                monthlyLink={plan.pricing.monthly?.stripeLink}
-                annualLink={plan.pricing.annual?.stripeLink}
+                productId={plan.id}
+                priceWithTaxMonthly={plan.pricing.monthly?.priceWithTax}
+                priceWithTaxAnnual={plan.pricing.annual?.priceWithTax}
                 features={plan.features}
                 delay={index}
               />
@@ -105,32 +109,9 @@ import { PricingCard, StarProductCard } from '../islands/PricingCard';
                 badge={plan.badge}
                 monthlyPrice={plan.pricing.monthly?.price}
                 annualPrice={plan.pricing.annual?.price}
-                monthlyLink={plan.pricing.monthly?.stripeLink}
-                annualLink={plan.pricing.annual?.stripeLink}
-                features={plan.features}
-                delay={index}
-              />
-            ))}
-          </div>
-        </div>
-
-        <!-- Pack Plans -->
-        <div>
-          <div class="mb-8 text-center">
-            <h2 class="font-orbitron text-2xl font-bold md:text-3xl">Packs Combinados</h2>
-            <p class="mt-2 text-muted-foreground">Ahorra combinando servicios</p>
-          </div>
-          <div class="grid gap-6 md:grid-cols-3">
-            {PACK_PLANS.map((plan, index) => (
-              <PricingCard
-                client:visible
-                name={plan.name}
-                tagline={plan.tagline}
-                badge={plan.badge}
-                monthlyPrice={plan.pricing.monthly?.price}
-                annualPrice={plan.pricing.annual?.price}
-                monthlyLink={plan.pricing.monthly?.stripeLink}
-                annualLink={plan.pricing.annual?.stripeLink}
+                productId={plan.id}
+                priceWithTaxMonthly={plan.pricing.monthly?.priceWithTax}
+                priceWithTaxAnnual={plan.pricing.annual?.priceWithTax}
                 features={plan.features}
                 delay={index}
               />
@@ -151,8 +132,9 @@ import { PricingCard, StarProductCard } from '../islands/PricingCard';
                 tagline={addon.description}
                 monthlyPrice={addon.pricing.monthly?.price}
                 annualPrice={addon.pricing.annual?.price}
-                monthlyLink={addon.pricing.monthly?.stripeLink}
-                annualLink={addon.pricing.annual?.stripeLink}
+                productId={addon.id}
+                priceWithTaxMonthly={addon.pricing.monthly?.priceWithTax}
+                priceWithTaxAnnual={addon.pricing.annual?.priceWithTax}
                 features={addon.features}
                 delay={index}
               />
@@ -179,4 +161,7 @@ import { PricingCard, StarProductCard } from '../islands/PricingCard';
       </div>
     </div>
   </section>
+
+  <!-- Floating Cart -->
+  <FloatingCart client:load />
 </MarketingLayout>

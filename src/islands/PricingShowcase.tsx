@@ -101,12 +101,10 @@ export function PricingShowcase() {
                   {/* CTA */}
                   <div className="flex flex-col sm:flex-row gap-3 mt-6">
                     <a
-                      href={pricing?.stripeLink}
-                      target="_blank"
-                      rel="noopener noreferrer"
+                      href="/precios"
                       className="inline-flex items-center justify-center h-12 px-6 font-medium rounded-md bg-primary text-primary-foreground hover:bg-primary/80 transition-all shine-effect animate-subtle-pulse"
                     >
-                      Contratar ahora
+                      Ver precios
                       <ArrowRight className="ml-2 h-4 w-4" />
                     </a>
                     <a

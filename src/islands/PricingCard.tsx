@@ -1,6 +1,153 @@
-import { motion } from 'motion/react';
-import { Check, Sparkles, Zap, Crown } from 'lucide-react';
+import { useState, useEffect, useRef } from 'react';
+import { motion, AnimatePresence } from 'motion/react';
+import { Check, Sparkles, ShoppingCart, Crown } from 'lucide-react';
 import { cn } from '../lib/utils';
+import { useCart } from '../lib/useCart';
+import type { CartItem } from '../lib/cart';
+
+type ButtonState = 'idle' | 'expanded' | 'added';
+
+function formatEur(n: number): string {
+  return n.toFixed(2).replace('.', ',') + '€';
+}
+
+function AddToCartButton({
+  productId,
+  name,
+  priceWithTaxMonthly,
+  priceWithTaxAnnual,
+}: {
+  productId: string;
+  name: string;
+  priceWithTaxMonthly?: number;
+  priceWithTaxAnnual?: number;
+}) {
+  const { add, isInCart } = useCart();
+  const [state, setState] = useState<ButtonState>('idle');
+  const timeoutRef = useRef<ReturnType<typeof setTimeout>>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (isInCart(productId)) {
+      setState('added');
+    }
+  }, [productId]);
+
+  useEffect(() => {
+    function handleClickOutside(e: MouseEvent) {
+      if (state === 'expanded' && containerRef.current && !containerRef.current.contains(e.target as Node)) {
+        setState('idle');
+      }
+    }
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, [state]);
+
+  useEffect(() => {
+    return () => {
+      if (timeoutRef.current) clearTimeout(timeoutRef.current);
+    };
+  }, []);
+
+  function handleExpand() {
+    if (state === 'added') return;
+    setState('expanded');
+  }
+
+  function handleSelect(period: 'monthly' | 'annual') {
+    const selectedPrice = period === 'monthly' ? priceWithTaxMonthly! : priceWithTaxAnnual!;
+    const item: CartItem = {
+      productId,
+      name,
+      billingPeriod: period,
+      priceMonthly: priceWithTaxMonthly || 0,
+      priceAnnual: priceWithTaxAnnual || 0,
+      selectedPrice,
+    };
+    add(item);
+    setState('added');
+    timeoutRef.current = setTimeout(() => {
+      // Keep as "added" state
+    }, 2000);
+  }
+
+  const hasMonthly = typeof priceWithTaxMonthly === 'number' && priceWithTaxMonthly > 0;
+  const hasAnnual = typeof priceWithTaxAnnual === 'number' && priceWithTaxAnnual > 0;
+
+  // If only one option, skip expand step
+  function handleIdleClick() {
+    if (hasMonthly && !hasAnnual) {
+      handleSelect('monthly');
+    } else if (!hasMonthly && hasAnnual) {
+      handleSelect('annual');
+    } else {
+      handleExpand();
+    }
+  }
+
+  return (
+    <div ref={containerRef} className="mt-4">
+      <AnimatePresence mode="wait">
+        {state === 'idle' && (
+          <motion.button
+            key="idle"
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.95 }}
+            transition={{ duration: 0.2 }}
+            onClick={handleIdleClick}
+            className="flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-primary to-primary/80 px-4 py-3 text-sm font-medium text-primary-foreground transition-all duration-300 hover:shadow-lg hover:shadow-primary/25"
+          >
+            <ShoppingCart className="h-4 w-4" />
+            Anadir al carrito
+          </motion.button>
+        )}
+
+        {state === 'expanded' && (
+          <motion.div
+            key="expanded"
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.95 }}
+            transition={{ duration: 0.2 }}
+            className="flex w-full gap-2"
+          >
+            {hasMonthly && (
+              <button
+                onClick={() => handleSelect('monthly')}
+                className="flex-1 rounded-xl border border-border/50 bg-background/50 px-3 py-3 text-xs font-medium text-foreground backdrop-blur-sm transition-all duration-200 hover:border-primary/50 hover:bg-primary/5"
+              >
+                Mensual<br />{formatEur(priceWithTaxMonthly!)}
+              </button>
+            )}
+            {hasAnnual && (
+              <button
+                onClick={() => handleSelect('annual')}
+                className="flex-1 rounded-xl bg-gradient-to-r from-primary to-primary/80 px-3 py-3 text-xs font-medium text-primary-foreground transition-all duration-200 hover:shadow-lg hover:shadow-primary/25"
+              >
+                Anual<br />{formatEur(priceWithTaxAnnual!)}
+              </button>
+            )}
+          </motion.div>
+        )}
+
+        {state === 'added' && (
+          <motion.div
+            key="added"
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.95 }}
+            transition={{ duration: 0.2 }}
+            className="flex w-full items-center justify-center gap-2 rounded-xl border border-primary/30 bg-primary/10 px-4 py-3 text-sm font-medium text-primary"
+          >
+            <Check className="h-4 w-4" />
+            Anadido al carrito
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
+  );
+}
 
 interface PricingCardProps {
   name: string;
@@ -8,8 +155,9 @@ interface PricingCardProps {
   badge?: string;
   monthlyPrice?: number;
   annualPrice?: number;
-  monthlyLink?: string;
-  annualLink?: string;
+  productId: string;
+  priceWithTaxMonthly?: number;
+  priceWithTaxAnnual?: number;
   features: string[];
   isStar?: boolean;
   delay?: number;
@@ -21,8 +169,9 @@ export function PricingCard({
   badge,
   monthlyPrice,
   annualPrice,
-  monthlyLink,
-  annualLink,
+  productId,
+  priceWithTaxMonthly,
+  priceWithTaxAnnual,
   features,
   isStar = false,
   delay = 0,
@@ -132,33 +281,13 @@ export function PricingCard({
           ))}
         </ul>
 
-        {/* CTAs */}
-        <div className="space-y-2">
-          {monthlyLink && (
-            <a
-              href={monthlyLink}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex w-full items-center justify-center gap-2 rounded-xl border border-border/50 bg-background/50 px-4 py-3 text-sm font-medium text-foreground backdrop-blur-sm transition-all duration-300 hover:border-primary/50 hover:bg-primary/5"
-            >
-              Contratar mensual
-            </a>
-          )}
-          {annualLink && (
-            <a
-              href={annualLink}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group/btn relative flex w-full items-center justify-center gap-2 overflow-hidden rounded-xl bg-gradient-to-r from-primary to-primary/80 px-4 py-3 text-sm font-medium text-primary-foreground transition-all duration-300 hover:shadow-lg hover:shadow-primary/25"
-            >
-              <span className="relative z-10 flex items-center gap-2">
-                <Zap className="h-4 w-4" />
-                Contratar anual
-              </span>
-              <div className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/20 to-transparent transition-transform duration-700 group-hover/btn:translate-x-full" />
-            </a>
-          )}
-        </div>
+        {/* Add to Cart */}
+        <AddToCartButton
+          productId={productId}
+          name={name}
+          priceWithTaxMonthly={priceWithTaxMonthly}
+          priceWithTaxAnnual={priceWithTaxAnnual}
+        />
       </div>
     </motion.div>
   );
@@ -169,21 +298,23 @@ export function StarProductCard({
   tagline,
   monthlyPrice,
   annualPrice,
-  monthlyLink,
-  annualLink,
   annualSavings,
   features,
   includedServices,
+  productId,
+  priceWithTaxMonthly,
+  priceWithTaxAnnual,
 }: {
   name: string;
   tagline: string;
   monthlyPrice: number;
   annualPrice: number;
-  monthlyLink: string;
-  annualLink: string;
   annualSavings: string;
   features: string[];
   includedServices: { name: string; description: string }[];
+  productId: string;
+  priceWithTaxMonthly: number;
+  priceWithTaxAnnual: number;
 }) {
   return (
     <motion.div
@@ -239,14 +370,6 @@ export function StarProductCard({
                     </span>
                     <span className="text-muted-foreground">/mes</span>
                   </div>
-                  <a
-                    href={monthlyLink}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="mt-4 flex w-full items-center justify-center gap-2 rounded-xl border border-border/50 bg-background/50 px-4 py-3 font-medium text-foreground backdrop-blur-sm transition-all duration-300 hover:border-primary/50 hover:bg-primary/5"
-                  >
-                    Contratar mensual
-                  </a>
                 </div>
 
                 {/* Annual */}
@@ -265,19 +388,15 @@ export function StarProductCard({
                   <p className="mt-2 text-sm font-semibold text-primary">
                     {annualSavings}
                   </p>
-                  <a
-                    href={annualLink}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="group/btn relative mt-4 flex w-full items-center justify-center gap-2 overflow-hidden rounded-xl bg-gradient-to-r from-primary to-primary/80 px-4 py-3 font-medium text-primary-foreground transition-all duration-300 hover:shadow-lg hover:shadow-primary/25"
-                  >
-                    <span className="relative z-10 flex items-center gap-2">
-                      <Zap className="h-4 w-4" />
-                      Contratar anual
-                    </span>
-                    <div className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/20 to-transparent transition-transform duration-700 group-hover/btn:translate-x-full" />
-                  </a>
                 </div>
+
+                {/* Add to Cart */}
+                <AddToCartButton
+                  productId={productId}
+                  name={name}
+                  priceWithTaxMonthly={priceWithTaxMonthly}
+                  priceWithTaxAnnual={priceWithTaxAnnual}
+                />
               </div>
 
               {/* Features side */}

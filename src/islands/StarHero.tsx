@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react';
 import { motion } from 'motion/react';
 import { Star, Sparkles, Check } from 'lucide-react';
 import { cn } from '../lib/utils';
-import { STAR_PRODUCT } from '../lib/catalog';
 
 // Componente BlurFade con Motion
 function BlurFade({
@@ -58,8 +57,6 @@ export function StarHero() {
 
     return () => clearInterval(interval);
   }, []);
-
-  const annualPricing = STAR_PRODUCT.pricing.annual;
 
   return (
     <section className="relative min-h-[calc(100vh-3.5rem)] flex items-center overflow-hidden">
@@ -130,9 +127,7 @@ export function StarHero() {
             <BlurFade delay={0.5}>
               <div className="flex flex-col sm:flex-row items-start gap-4 mb-12">
                 <a
-                  href={annualPricing?.stripeLink}
-                  target="_blank"
-                  rel="noopener noreferrer"
+                  href="/precios"
                   className="inline-flex items-center justify-center h-14 px-8 text-lg font-medium rounded-md bg-primary text-primary-foreground hover:bg-primary/80 transition-all shine-effect animate-subtle-pulse"
                 >
                   Empezar ahora
@@ -158,7 +153,7 @@ export function StarHero() {
                 </div>
                 <div className="flex items-center gap-2">
                   <Check className="w-4 h-4 text-primary" />
-                  <span>Pago seguro con Stripe</span>
+                  <span>Pago seguro</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <Check className="w-4 h-4 text-primary" />

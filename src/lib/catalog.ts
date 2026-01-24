@@ -1,56 +1,9 @@
 /**
  * SOLWED Service Catalog
- * Updated: December 2024
+ * Updated: January 2025
  *
- * Central data source for all products, pricing, and Stripe integration
+ * Central data source for all products and pricing
  */
-
-// ============================================================================
-// STRIPE PAYMENT LINKS (from environment variables)
-// ============================================================================
-// Note: These are defined as string literals to avoid hydration mismatches.
-// For production, replace with live mode links or use a build-time replacement.
-
-const PAYMENT_LINKS = {
-  // Todo en Uno
-  TODO_EN_UNO_MENSUAL: 'https://buy.stripe.com/3cI3cveDugFgbz7dyCco00I',
-  TODO_EN_UNO_ANUAL: 'https://buy.stripe.com/eVq28rfHy3Su46F2TYco00J',
-  // WordPress Hosting - Monthly
-  WORDPRESS_STARTER_MENSUAL: 'https://buy.stripe.com/bJe7sL52UfBc8mV8eico00K',
-  WORDPRESS_PRO_MENSUAL: 'https://buy.stripe.com/14A4gz2UM0Gi32B7aeco00L',
-  WORDPRESS_VPS_MENSUAL: 'https://buy.stripe.com/dRmeVdanecp0fPn9imco00M',
-  // WordPress Hosting - Annual
-  WORDPRESS_STARTER_ANUAL: 'https://buy.stripe.com/aFacN5eDu60C46F66aco00Q',
-  WORDPRESS_PRO_ANUAL: 'https://buy.stripe.com/5kQ6oHane4WycDbdyCco00R',
-  WORDPRESS_VPS_ANUAL: 'https://buy.stripe.com/14A28rfHyex85aJdyCco00S',
-  // ERP - Monthly
-  ERP_PRINCIPIANTE_MENSUAL: 'https://buy.stripe.com/eVq28r3YQdt45aJ526co00N',
-  ERP_ESTANDAR_MENSUAL: 'https://buy.stripe.com/28E9ATdzqfBc8mV3Y2co00O',
-  ERP_PROFESIONAL_MENSUAL: 'https://buy.stripe.com/14A7sL7b29cO46F526co00P',
-  // ERP - Annual
-  ERP_PRINCIPIANTE_ANUAL: 'https://buy.stripe.com/8x29ATgLCbkW6eN9imco00T',
-  ERP_ESTANDAR_ANUAL: 'https://buy.stripe.com/aFafZh9ja9cO46Fbquco00U',
-  ERP_PROFESIONAL_ANUAL: 'https://buy.stripe.com/dRmcN52UM4Wy7iR7aeco00V',
-  // Extras
-  DOMINIO: 'https://buy.stripe.com/aFadR91QI3SueLjamqco00s',
-  SOPORTE_PREMIUM: 'https://buy.stripe.com/9B67sLcvm74G9qZ66aco00W',
-  // Email - Monthly
-  EMAIL_STARTER_MENSUAL: 'https://buy.stripe.com/4gM8wP2UMagSbz79imco00X',
-  EMAIL_BUSINESS_MENSUAL: 'https://buy.stripe.com/fZubJ19jabkW46F1PUco00Y',
-  EMAIL_UNLIMITED_MENSUAL: 'https://buy.stripe.com/6oU6oHdzq3SufPn2TYco00Z',
-  // Email - Annual
-  EMAIL_STARTER_ANUAL: 'https://buy.stripe.com/8x23cvcvm3Su46F8eico013',
-  EMAIL_BUSINESS_ANUAL: 'https://buy.stripe.com/6oUdR9fHyex8dHfbquco014',
-  EMAIL_UNLIMITED_ANUAL: 'https://buy.stripe.com/3cI00jeDufBc7iRgKOco015',
-  // Packs combinados - Monthly
-  WEB_CORREOS_PRO_MENSUAL: 'https://buy.stripe.com/6oU3cv7b2agS6eN526co02G',
-  WEB_EMAIL_STARTER_MENSUAL: 'https://buy.stripe.com/4gMeVd2UM74G5aJ7aeco027',
-  WEB_PRO_ERP_MENSUAL: 'https://buy.stripe.com/8x25kD7b2cp0dHf9imco029',
-  // Packs combinados - Annual
-  WEB_CORREOS_PRO_ANUAL: 'https://buy.stripe.com/3cI14n66Ydt47iRgKOco02H',
-  WEB_EMAIL_STARTER_ANUAL: 'https://buy.stripe.com/bJecN52UMdt4cDb526co028',
-  WEB_PRO_ERP_ANUAL: 'https://buy.stripe.com/6oU8wP9ja3SueLjgKOco02a',
-} as const
 
 // ============================================================================
 // TYPE DEFINITIONS
@@ -60,7 +13,6 @@ export interface PriceOption {
   price: number
   priceWithTax: number
   period: 'mes' | 'año'
-  stripeLink: string
   savings?: string
 }
 
@@ -70,7 +22,7 @@ export interface Product {
   name: string
   tagline: string
   description: string
-  category: 'star' | 'hosting' | 'erp' | 'email' | 'pack' | 'addon'
+  category: 'star' | 'hosting' | 'erp' | 'email' | 'addon'
   isStar?: boolean
   badge?: string
   pricing: {
@@ -96,12 +48,6 @@ export interface Coupon {
 }
 
 // ============================================================================
-// STRIPE PORTAL
-// ============================================================================
-
-export const STRIPE_PORTAL_URL = 'https://billing.stripe.com/p/login/3cs7utgjNeEweB29AA'
-
-// ============================================================================
 // STAR PRODUCT: SOLWED TODO EN UNO
 // ============================================================================
 
@@ -120,14 +66,12 @@ export const STAR_PRODUCT: Product = {
       price: 150,
       priceWithTax: 181.5,
       period: 'mes',
-      stripeLink: PAYMENT_LINKS.TODO_EN_UNO_MENSUAL,
       savings: 'Solo mantenimiento web',
     },
     annual: {
       price: 1500,
       priceWithTax: 1815,
       period: 'año',
-      stripeLink: PAYMENT_LINKS.TODO_EN_UNO_ANUAL,
       savings: 'Web/tienda de REGALO + 2 meses GRATIS',
     },
   },
@@ -199,13 +143,11 @@ export const HOSTING_PLANS: Product[] = [
         price: 9.89,
         priceWithTax: 11.97,
         period: 'mes',
-        stripeLink: PAYMENT_LINKS.WORDPRESS_STARTER_MENSUAL,
       },
       annual: {
         price: 98.90,
         priceWithTax: 119.67,
         period: 'año',
-        stripeLink: PAYMENT_LINKS.WORDPRESS_STARTER_ANUAL,
         savings: '2 meses gratis',
       },
     },
@@ -232,13 +174,11 @@ export const HOSTING_PLANS: Product[] = [
         price: 19.89,
         priceWithTax: 24.07,
         period: 'mes',
-        stripeLink: PAYMENT_LINKS.WORDPRESS_PRO_MENSUAL,
       },
       annual: {
         price: 198.90,
         priceWithTax: 240.67,
         period: 'año',
-        stripeLink: PAYMENT_LINKS.WORDPRESS_PRO_ANUAL,
         savings: '2 meses gratis',
       },
     },
@@ -265,13 +205,11 @@ export const HOSTING_PLANS: Product[] = [
         price: 49.89,
         priceWithTax: 60.37,
         period: 'mes',
-        stripeLink: PAYMENT_LINKS.WORDPRESS_VPS_MENSUAL,
       },
       annual: {
         price: 498.90,
         priceWithTax: 603.67,
         period: 'año',
-        stripeLink: PAYMENT_LINKS.WORDPRESS_VPS_ANUAL,
         savings: '2 meses gratis',
       },
     },
@@ -306,13 +244,11 @@ export const ERP_PLANS: Product[] = [
         price: 9.89,
         priceWithTax: 11.97,
         period: 'mes',
-        stripeLink: PAYMENT_LINKS.ERP_PRINCIPIANTE_MENSUAL,
       },
       annual: {
         price: 98.90,
         priceWithTax: 119.67,
         period: 'año',
-        stripeLink: PAYMENT_LINKS.ERP_PRINCIPIANTE_ANUAL,
         savings: '2 meses gratis',
       },
     },
@@ -340,13 +276,11 @@ export const ERP_PLANS: Product[] = [
         price: 19.89,
         priceWithTax: 24.07,
         period: 'mes',
-        stripeLink: PAYMENT_LINKS.ERP_ESTANDAR_MENSUAL,
       },
       annual: {
         price: 198.90,
         priceWithTax: 240.67,
         period: 'año',
-        stripeLink: PAYMENT_LINKS.ERP_ESTANDAR_ANUAL,
         savings: '2 meses gratis',
       },
     },
@@ -374,13 +308,11 @@ export const ERP_PLANS: Product[] = [
         price: 49.89,
         priceWithTax: 60.37,
         period: 'mes',
-        stripeLink: PAYMENT_LINKS.ERP_PROFESIONAL_MENSUAL,
       },
       annual: {
         price: 498.90,
         priceWithTax: 603.67,
         period: 'año',
-        stripeLink: PAYMENT_LINKS.ERP_PROFESIONAL_ANUAL,
         savings: '2 meses gratis',
       },
     },
@@ -414,7 +346,6 @@ export const ADDON_SERVICES: Product[] = [
         price: 19.89,
         priceWithTax: 24.07,
         period: 'año',
-        stripeLink: PAYMENT_LINKS.DOMINIO,
       },
     },
     features: [
@@ -437,7 +368,6 @@ export const ADDON_SERVICES: Product[] = [
         price: 49.89,
         priceWithTax: 60.37,
         period: 'mes',
-        stripeLink: PAYMENT_LINKS.SOPORTE_PREMIUM,
       },
     },
     features: [
@@ -467,13 +397,11 @@ export const EMAIL_PLANS: Product[] = [
         price: 4.89,
         priceWithTax: 5.92,
         period: 'mes',
-        stripeLink: PAYMENT_LINKS.EMAIL_STARTER_MENSUAL,
       },
       annual: {
         price: 48.90,
         priceWithTax: 59.17,
         period: 'año',
-        stripeLink: PAYMENT_LINKS.EMAIL_STARTER_ANUAL,
         savings: '2 meses gratis',
       },
     },
@@ -502,13 +430,11 @@ export const EMAIL_PLANS: Product[] = [
         price: 14.89,
         priceWithTax: 18.02,
         period: 'mes',
-        stripeLink: PAYMENT_LINKS.EMAIL_BUSINESS_MENSUAL,
       },
       annual: {
         price: 148.90,
         priceWithTax: 180.17,
         period: 'año',
-        stripeLink: PAYMENT_LINKS.EMAIL_BUSINESS_ANUAL,
         savings: '2 meses gratis',
       },
     },
@@ -536,13 +462,11 @@ export const EMAIL_PLANS: Product[] = [
         price: 29.89,
         priceWithTax: 36.17,
         period: 'mes',
-        stripeLink: PAYMENT_LINKS.EMAIL_UNLIMITED_MENSUAL,
       },
       annual: {
         price: 298.90,
         priceWithTax: 361.67,
         period: 'año',
-        stripeLink: PAYMENT_LINKS.EMAIL_UNLIMITED_ANUAL,
         savings: '2 meses gratis',
       },
     },
@@ -556,101 +480,6 @@ export const EMAIL_PLANS: Product[] = [
       'Alias ilimitados',
       'Autoresponders',
       'Soporte prioritario',
-    ],
-  },
-]
-
-// ============================================================================
-// PACKS COMBINADOS
-// ============================================================================
-
-export const PACK_PLANS: Product[] = [
-  {
-    id: 'web-email-starter',
-    slug: 'web-email-starter',
-    name: 'Web + Email Starter',
-    tagline: 'Pack básico',
-    description: 'WordPress Starter + Email Starter combinados con descuento.',
-    category: 'pack',
-    pricing: {
-      monthly: {
-        price: 14.78,
-        priceWithTax: 17.88,
-        period: 'mes',
-        stripeLink: PAYMENT_LINKS.WEB_EMAIL_STARTER_MENSUAL,
-      },
-      annual: {
-        price: 147.80,
-        priceWithTax: 178.84,
-        period: 'año',
-        stripeLink: PAYMENT_LINKS.WEB_EMAIL_STARTER_ANUAL,
-        savings: '2 meses gratis',
-      },
-    },
-    features: [
-      'WordPress Starter (5GB, SSL, Backups)',
-      'Email Starter (5 buzones, 10GB)',
-      'Webmail + Antispam',
-      'Soporte por email/tickets',
-    ],
-  },
-  {
-    id: 'web-correos-pro',
-    slug: 'web-correos-pro',
-    name: 'Web + Correos Pro',
-    tagline: 'Pack profesional',
-    description: 'WordPress Pro + Email Business combinados con descuento.',
-    category: 'pack',
-    badge: 'Mejor valor',
-    pricing: {
-      monthly: {
-        price: 34.96,
-        priceWithTax: 42.30,
-        period: 'mes',
-        stripeLink: PAYMENT_LINKS.WEB_CORREOS_PRO_MENSUAL,
-      },
-      annual: {
-        price: 349.60,
-        priceWithTax: 423.02,
-        period: 'año',
-        stripeLink: PAYMENT_LINKS.WEB_CORREOS_PRO_ANUAL,
-        savings: '2 meses gratis',
-      },
-    },
-    features: [
-      'WordPress Pro (15GB, Staging, SSL)',
-      'Email Business (15 buzones, 20GB)',
-      'Webmail + Antispam',
-      'Soporte prioritario',
-    ],
-  },
-  {
-    id: 'web-pro-erp',
-    slug: 'web-pro-erp',
-    name: 'Web Pro + ERP',
-    tagline: 'Pack completo',
-    description: 'WordPress Pro + ERP Estándar combinados con descuento.',
-    category: 'pack',
-    pricing: {
-      monthly: {
-        price: 39.78,
-        priceWithTax: 48.13,
-        period: 'mes',
-        stripeLink: PAYMENT_LINKS.WEB_PRO_ERP_MENSUAL,
-      },
-      annual: {
-        price: 397.80,
-        priceWithTax: 481.34,
-        period: 'año',
-        stripeLink: PAYMENT_LINKS.WEB_PRO_ERP_ANUAL,
-        savings: '2 meses gratis',
-      },
-    },
-    features: [
-      'WordPress Pro (15GB, Staging, SSL)',
-      'ERP Estándar (Verifactu, TPV, RRHH)',
-      'Facturación electrónica',
-      'Soporte por email/tickets',
     ],
   },
 ]
@@ -725,7 +554,6 @@ export const getAllProducts = (): Product[] => [
   ...HOSTING_PLANS,
   ...ERP_PLANS,
   ...EMAIL_PLANS,
-  ...PACK_PLANS,
   ...ADDON_SERVICES,
 ]
 
