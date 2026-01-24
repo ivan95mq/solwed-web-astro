@@ -14,10 +14,16 @@ function BlurFade({
   delay?: number;
   className?: string;
 }) {
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
   return (
     <motion.div
       initial={{ opacity: 0, filter: 'blur(10px)', y: 20 }}
-      animate={{ opacity: 1, filter: 'blur(0px)', y: 0 }}
+      animate={isMounted ? { opacity: 1, filter: 'blur(0px)', y: 0 } : { opacity: 0, filter: 'blur(10px)', y: 20 }}
       transition={{ duration: 0.5, delay, ease: 'easeOut' }}
       className={className}
     >
@@ -78,7 +84,7 @@ export function StarHero() {
             <BlurFade delay={0.1}>
               <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-card/80 backdrop-blur-sm border border-border mb-8 float-label">
                 <Star className="w-4 h-4 text-primary fill-primary" />
-                <span className="text-sm font-medium">Servicio Estrella</span>
+                <span className="text-sm font-medium">Atrévete a subir de nivel</span>
                 <Sparkles className="w-4 h-4 text-primary" />
               </div>
             </BlurFade>
@@ -221,18 +227,6 @@ export function StarHero() {
                 />
               </motion.div>
 
-              {/* Floating badge */}
-              <motion.div
-                className="absolute -bottom-4 -right-4 bg-card/90 backdrop-blur-sm border border-border rounded-xl px-4 py-3 shadow-lg"
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ delay: 0.8, duration: 0.5 }}
-              >
-                <div className="flex items-center gap-2">
-                  <div className="w-3 h-3 bg-green-500 rounded-full animate-pulse" />
-                  <span className="text-sm font-medium">Disponible para ti</span>
-                </div>
-              </motion.div>
             </div>
           </BlurFade>
         </div>

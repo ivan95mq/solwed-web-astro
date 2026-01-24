@@ -3,6 +3,7 @@ import Layout from './Layout.astro';
 import { Header } from '../islands/Header';
 import Footer from '../components/Footer.astro';
 import FloatingContactButton from '../components/shared/FloatingContactButton.astro';
+import CookieConsent from '../islands/CookieConsent';
 
 interface Props {
   title: string;
@@ -19,4 +20,5 @@ const { title, description } = Astro.props;
   </main>
   <Footer />
   <FloatingContactButton />
+  <CookieConsent client:load />
 </Layout>

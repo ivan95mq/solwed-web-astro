@@ -20,7 +20,7 @@ import { WEB_DESIGN_SERVICE } from '../../lib/catalog';
             Diseño personalizado
           </span>
 
-          <h2 class="font-geist mb-4 text-3xl font-bold tracking-tight text-foreground md:text-4xl lg:text-5xl">
+          <h2 class="font-orbitron mb-4 text-3xl font-bold tracking-tight text-foreground md:text-4xl lg:text-5xl">
             {WEB_DESIGN_SERVICE.name}
           </h2>
 
@@ -72,43 +72,16 @@ import { WEB_DESIGN_SERVICE } from '../../lib/catalog';
           </a>
         </div>
 
-        <!-- Visual/Illustration -->
-        <div class="relative hidden lg:block">
-          <div class="aspect-square rounded-2xl border border-border bg-gradient-to-br from-primary/5 to-primary/10 p-8">
-            <!-- Device mockups -->
-            <div class="relative h-full">
-              <!-- Desktop mockup -->
-              <div class="absolute left-0 top-0 w-3/4 rounded-lg border border-border bg-card p-2 shadow-lg">
-                <div class="mb-2 flex gap-1.5">
-                  <div class="h-2 w-2 rounded-full bg-red-500"></div>
-                  <div class="h-2 w-2 rounded-full bg-yellow-500"></div>
-                  <div class="h-2 w-2 rounded-full bg-green-500"></div>
-                </div>
-                <div class="space-y-2">
-                  <div class="h-3 w-1/2 rounded bg-muted"></div>
-                  <div class="h-24 rounded bg-gradient-to-br from-primary/20 to-primary/5"></div>
-                  <div class="h-2 w-3/4 rounded bg-muted"></div>
-                  <div class="h-2 w-1/2 rounded bg-muted"></div>
-                </div>
-              </div>
-
-              <!-- Mobile mockup -->
-              <div class="absolute bottom-0 right-0 w-1/3 rounded-xl border border-border bg-card p-2 shadow-lg">
-                <div class="mb-2 flex justify-center">
-                  <div class="h-1 w-8 rounded-full bg-muted"></div>
-                </div>
-                <div class="space-y-2">
-                  <div class="h-16 rounded bg-gradient-to-br from-primary/20 to-primary/5"></div>
-                  <div class="h-2 w-3/4 rounded bg-muted"></div>
-                  <div class="h-2 w-1/2 rounded bg-muted"></div>
-                  <div class="h-6 w-full rounded bg-primary/30"></div>
-                </div>
-              </div>
-
-              <!-- Floating elements -->
-              <div class="absolute right-1/4 top-1/4 h-12 w-12 animate-float rounded-lg bg-primary/20 shadow-lg"></div>
-              <div class="absolute bottom-1/3 left-1/4 h-8 w-8 animate-float-delayed rounded-full bg-primary/30 shadow-lg"></div>
-            </div>
+        <!-- GIF animado -->
+        <div class="relative hidden lg:block max-w-xs mx-auto">
+          <div class="aspect-[1/2] rounded-2xl border-2 border-primary shadow-lg shadow-primary/30 overflow-hidden">
+            <img
+              src="/images/content/2025/01/APP-POLLO.gif"
+              alt="App demostración"
+              class="w-full h-full object-cover"
+            />
+            <!-- Degradado sutil en la parte inferior -->
+            <div class="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-card to-transparent"></div>
           </div>
         </div>
       </div>

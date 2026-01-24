@@ -1,12 +1,158 @@
 ---
 import '../styles/global.css';
+import { FAQ_ITEMS } from '../lib/faq';
+import { STAR_PRODUCT, HOSTING_PLANS, ERP_PLANS } from '../lib/catalog';
 
 interface Props {
   title: string;
   description?: string;
+  ogImage?: string;
 }
 
-const { title, description = 'Web + ERP + CRM + IA + Hosting. Todo incluido, sin permanencia. Primer mes GRATIS con codigo de socio.' } = Astro.props;
+const {
+  title,
+  description = 'Web + ERP + CRM + IA + Hosting. Todo incluido, sin permanencia. Primer mes GRATIS con codigo de socio.',
+  ogImage = '/og-image.png'
+} = Astro.props;
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+const ogImageURL = new URL(ogImage, Astro.site);
+
+// Schema.org JSON-LD
+const organizationSchema = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "SOLWED",
+  "legalName": "SOLUTIONS WEBSITE DESIGN SLU",
+  "url": "https://solwed.es",
+  "logo": "https://solwed.es/logo.png",
+  "description": "Soluciones digitales todo incluido: Web, ERP, CRM, IA y Hosting para empresas españolas.",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "Camino viejo de Mirandilla S/N",
+    "addressLocality": "Mérida",
+    "postalCode": "06800",
+    "addressRegion": "Badajoz",
+    "addressCountry": "ES"
+  },
+  "contactPoint": {
+    "@type": "ContactPoint",
+    "telephone": "+34644831916",
+    "contactType": "customer service",
+    "email": "hola@solwed.es",
+    "availableLanguage": "Spanish"
+  },
+  "sameAs": [
+    "https://facebook.com/104035788867398",
+    "https://linkedin.com/company/81428841",
+    "https://instagram.com/solwed.es"
+  ]
+};
+
+const localBusinessSchema = {
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "@id": "https://solwed.es/#localbusiness",
+  "name": "SOLWED",
+  "image": "https://solwed.es/logo.png",
+  "telephone": "+34644831916",
+  "email": "hola@solwed.es",
+  "url": "https://solwed.es",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "Camino viejo de Mirandilla S/N",
+    "addressLocality": "Mérida",
+    "postalCode": "06800",
+    "addressRegion": "Badajoz",
+    "addressCountry": "ES"
+  },
+  "geo": {
+    "@type": "GeoCoordinates",
+    "latitude": 38.9160,
+    "longitude": -6.3436
+  },
+  "priceRange": "€€",
+  "openingHoursSpecification": {
+    "@type": "OpeningHoursSpecification",
+    "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+    "opens": "09:00",
+    "closes": "18:00"
+  }
+};
+
+// FAQ Schema for rich snippets
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": FAQ_ITEMS.map(item => ({
+    "@type": "Question",
+    "name": item.question,
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": item.answer
+    }
+  }))
+};
+
+// Service Schema for main product
+const serviceSchema = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "serviceType": "Digitalización empresarial",
+  "provider": {
+    "@type": "Organization",
+    "name": "SOLWED"
+  },
+  "name": STAR_PRODUCT.name,
+  "description": STAR_PRODUCT.description,
+  "offers": {
+    "@type": "Offer",
+    "price": STAR_PRODUCT.pricing.monthly?.price,
+    "priceCurrency": "EUR",
+    "priceSpecification": {
+      "@type": "UnitPriceSpecification",
+      "price": STAR_PRODUCT.pricing.monthly?.price,
+      "priceCurrency": "EUR",
+      "unitCode": "MON",
+      "referenceQuantity": {
+        "@type": "QuantitativeValue",
+        "value": 1,
+        "unitCode": "MON"
+      }
+    },
+    "availability": "https://schema.org/InStock"
+  },
+  "areaServed": {
+    "@type": "Country",
+    "name": "España"
+  },
+  "hasOfferCatalog": {
+    "@type": "OfferCatalog",
+    "name": "Servicios SOLWED",
+    "itemListElement": [
+      ...HOSTING_PLANS.map(plan => ({
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": plan.name,
+          "description": plan.description
+        },
+        "price": plan.pricing.monthly?.price,
+        "priceCurrency": "EUR"
+      })),
+      ...ERP_PLANS.map(plan => ({
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": plan.name,
+          "description": plan.description
+        },
+        "price": plan.pricing.monthly?.price,
+        "priceCurrency": "EUR"
+      }))
+    ]
+  }
+};
 ---
 
 <!doctype html>
@@ -16,24 +162,50 @@ const { title, description = 'Web + ERP + CRM + IA + Hosting. Todo incluido, sin
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content={description} />
     <meta name="generator" content={Astro.generator} />
+    <meta name="theme-color" content="#facc15" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
 
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Geist:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <!-- Canonical URL -->
+    <link rel="canonical" href={canonicalURL} />
+
+    <!-- Fonts (local) -->
+    <link rel="stylesheet" href="/fonts/css/orbitron.css" />
+    <link rel="stylesheet" href="/fonts/css/nunito.css" />
 
     <!-- Favicon -->
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <link rel="apple-touch-icon" href="/favicon.png" />
 
     <!-- Open Graph -->
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
     <meta property="og:locale" content="es_ES" />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:image" content={ogImageURL} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:site_name" content="SOLWED" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImageURL} />
+
+    <!-- Schema.org JSON-LD -->
+    <script type="application/ld+json" set:html={JSON.stringify(organizationSchema)} />
+    <script type="application/ld+json" set:html={JSON.stringify(localBusinessSchema)} />
+    <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+    <script type="application/ld+json" set:html={JSON.stringify(serviceSchema)} />
+
+    <!-- Preload LCP image for better performance -->
+    <link rel="preload" as="image" href="/images/hero/laptop-dark.webp" type="image/webp" />
 
     <title>{title}</title>
   </head>
-  <body class="antialiased font-inter">
+  <body class="antialiased font-nunito">
     <slot />
   </body>
 </html>

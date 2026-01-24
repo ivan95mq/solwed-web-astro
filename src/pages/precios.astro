@@ -1,208 +1,181 @@
 ---
 import MarketingLayout from '../layouts/MarketingLayout.astro';
-import { STAR_PRODUCT, HOSTING_PLANS, ERP_PLANS, ADDON_SERVICES } from '../lib/catalog';
+import { STAR_PRODUCT, HOSTING_PLANS, ERP_PLANS, EMAIL_PLANS, PACK_PLANS, ADDON_SERVICES } from '../lib/catalog';
+import { PricingCard, StarProductCard } from '../islands/PricingCard';
 ---
 
 <MarketingLayout
   title="Precios | SOLWED - Tu Departamento Digital Completo"
   description="Precios transparentes sin sorpresas. Web + ERP + CRM + IA + Hosting desde 150€/mes. Sin permanencia."
 >
-  <!-- Star Product -->
-  <section class="py-16 md:py-24">
-    <div class="container mx-auto px-4">
-      <div class="max-w-4xl mx-auto text-center mb-12">
-        <h1 class="text-4xl md:text-5xl font-bold mb-4">
-          Precios <span class="text-gradient">transparentes</span>
+  <!-- Hero Section -->
+  <section class="relative overflow-hidden py-16 md:py-24">
+    <!-- Background decorations -->
+    <div class="absolute left-1/4 top-0 h-96 w-96 -translate-x-1/2 -translate-y-1/2 rounded-full bg-primary/10 blur-3xl"></div>
+    <div class="absolute right-1/4 bottom-0 h-64 w-64 translate-x-1/2 translate-y-1/2 rounded-full bg-primary/5 blur-3xl"></div>
+
+    <div class="container relative mx-auto px-4">
+      <div class="mx-auto max-w-4xl text-center mb-16">
+        <h1 class="font-orbitron text-4xl font-bold md:text-5xl lg:text-6xl">
+          Precios <span class="bg-gradient-to-r from-primary to-primary/60 bg-clip-text text-transparent">transparentes</span>
         </h1>
-        <p class="text-xl text-muted-foreground">
+        <p class="mt-4 text-xl text-muted-foreground">
           Sin sorpresas, sin letra pequena. Elige el plan que mejor se adapte a tu negocio.
         </p>
       </div>
 
       <!-- Star Product Card -->
-      <div class="max-w-4xl mx-auto mb-16">
-        <div class="rounded-3xl border-2 border-primary/30 bg-card star-glow overflow-hidden">
-          <div class="p-8 bg-gradient-to-br from-primary/10 via-primary/5 to-transparent">
-            <div class="flex items-center gap-3 mb-4">
-              <h2 class="text-2xl font-bold">{STAR_PRODUCT.name}</h2>
-              <span class="px-3 py-1 rounded-full text-sm font-medium bg-primary text-primary-foreground">
-                Servicio Estrella
-              </span>
-            </div>
-            <p class="text-muted-foreground">{STAR_PRODUCT.tagline}</p>
-          </div>
-          <div class="p-8">
-            <div class="grid md:grid-cols-2 gap-8">
-              <div>
-                <div class="mb-6">
-                  <p class="text-sm text-muted-foreground mb-2">Pago mensual</p>
-                  <div class="flex items-baseline gap-2">
-                    <span class="text-4xl font-black">{STAR_PRODUCT.pricing.monthly?.price}€</span>
-                    <span class="text-muted-foreground">/mes</span>
-                  </div>
-                  <a
-                    href={STAR_PRODUCT.pricing.monthly?.stripeLink}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    class="inline-flex items-center justify-center mt-4 h-12 px-6 font-medium rounded-md border border-border bg-background hover:bg-muted transition-all"
-                  >
-                    Contratar mensual
-                  </a>
-                </div>
-                <div class="pt-6 border-t border-border">
-                  <p class="text-sm text-muted-foreground mb-2">Pago anual (2 meses gratis)</p>
-                  <div class="flex items-baseline gap-2">
-                    <span class="text-4xl font-black">{STAR_PRODUCT.pricing.annual?.price}€</span>
-                    <span class="text-muted-foreground">/ano</span>
-                  </div>
-                  <p class="text-sm text-primary font-medium mt-1">{STAR_PRODUCT.pricing.annual?.savings}</p>
-                  <a
-                    href={STAR_PRODUCT.pricing.annual?.stripeLink}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    class="inline-flex items-center justify-center mt-4 h-12 px-6 font-medium rounded-md bg-primary text-primary-foreground hover:bg-primary/80 transition-all shine-effect"
-                  >
-                    Contratar anual
-                  </a>
-                </div>
-              </div>
-              <div>
-                <h3 class="font-semibold mb-4">Todo incluido:</h3>
-                <ul class="space-y-2">
-                  {STAR_PRODUCT.features.map((feature) => (
-                    <li class="flex items-start gap-2 text-sm">
-                      <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-primary flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
-                      </svg>
-                      {feature}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div>
+      <div class="mx-auto max-w-5xl mb-20">
+        <StarProductCard
+          client:visible
+          name={STAR_PRODUCT.name}
+          tagline={STAR_PRODUCT.tagline}
+          monthlyPrice={STAR_PRODUCT.pricing.monthly?.price || 0}
+          annualPrice={STAR_PRODUCT.pricing.annual?.price || 0}
+          monthlyLink={STAR_PRODUCT.pricing.monthly?.stripeLink || ''}
+          annualLink={STAR_PRODUCT.pricing.annual?.stripeLink || ''}
+          annualSavings={STAR_PRODUCT.pricing.annual?.savings || ''}
+          features={STAR_PRODUCT.features}
+          includedServices={STAR_PRODUCT.includedServices || []}
+        />
       </div>
 
       <!-- Individual Plans -->
-      <div class="mb-16">
-        <h2 class="text-2xl font-bold text-center mb-8">Servicios Individuales</h2>
-
+      <div class="space-y-16">
         <!-- Hosting Plans -->
-        <h3 class="text-xl font-semibold mb-4">Hosting WordPress</h3>
-        <div class="grid md:grid-cols-3 gap-6 mb-12">
-          {HOSTING_PLANS.map((plan) => (
-            <div class="rounded-2xl border border-border bg-card p-6">
-              <div class="mb-4">
-                {plan.badge && (
-                  <span class="px-2 py-1 rounded text-xs font-medium bg-primary/20 text-primary mb-2 inline-block">
-                    {plan.badge}
-                  </span>
-                )}
-                <h4 class="text-lg font-bold">{plan.name}</h4>
-                <p class="text-sm text-muted-foreground">{plan.tagline}</p>
-              </div>
-              <div class="flex items-baseline gap-1 mb-4">
-                <span class="text-3xl font-black">{plan.pricing.monthly?.price}€</span>
-                <span class="text-muted-foreground">/mes</span>
-              </div>
-              <ul class="space-y-2 mb-6">
-                {plan.features.slice(0, 4).map((feature) => (
-                  <li class="flex items-start gap-2 text-sm">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-primary flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                      <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
-                    </svg>
-                    {feature}
-                  </li>
-                ))}
-              </ul>
-              <a
-                href={plan.pricing.monthly?.stripeLink}
-                target="_blank"
-                rel="noopener noreferrer"
-                class="block w-full text-center py-2 px-4 rounded-md border border-border hover:bg-muted transition-all text-sm font-medium"
-              >
-                Contratar
-              </a>
-            </div>
-          ))}
+        <div>
+          <div class="mb-8 text-center">
+            <h2 class="font-orbitron text-2xl font-bold md:text-3xl">Web WordPress</h2>
+            <p class="mt-2 text-muted-foreground">Hosting gestionado con soporte tecnico incluido</p>
+          </div>
+          <div class="grid gap-6 md:grid-cols-3">
+            {HOSTING_PLANS.map((plan, index) => (
+              <PricingCard
+                client:visible
+                name={plan.name}
+                tagline={plan.tagline}
+                badge={plan.badge}
+                monthlyPrice={plan.pricing.monthly?.price}
+                annualPrice={plan.pricing.annual?.price}
+                monthlyLink={plan.pricing.monthly?.stripeLink}
+                annualLink={plan.pricing.annual?.stripeLink}
+                features={plan.features}
+                delay={index}
+              />
+            ))}
+          </div>
         </div>
 
         <!-- ERP Plans -->
-        <h3 class="text-xl font-semibold mb-4">ERP + Facturacion</h3>
-        <div class="grid md:grid-cols-3 gap-6 mb-12">
-          {ERP_PLANS.map((plan) => (
-            <div class="rounded-2xl border border-border bg-card p-6">
-              <div class="mb-4">
-                {plan.badge && (
-                  <span class="px-2 py-1 rounded text-xs font-medium bg-primary/20 text-primary mb-2 inline-block">
-                    {plan.badge}
-                  </span>
-                )}
-                <h4 class="text-lg font-bold">{plan.name}</h4>
-                <p class="text-sm text-muted-foreground">{plan.tagline}</p>
-              </div>
-              <div class="flex items-baseline gap-1 mb-4">
-                <span class="text-3xl font-black">{plan.pricing.monthly?.price}€</span>
-                <span class="text-muted-foreground">/mes</span>
-              </div>
-              <ul class="space-y-2 mb-6">
-                {plan.features.slice(0, 4).map((feature) => (
-                  <li class="flex items-start gap-2 text-sm">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-primary flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                      <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
-                    </svg>
-                    {feature}
-                  </li>
-                ))}
-              </ul>
-              <a
-                href={plan.pricing.monthly?.stripeLink}
-                target="_blank"
-                rel="noopener noreferrer"
-                class="block w-full text-center py-2 px-4 rounded-md border border-border hover:bg-muted transition-all text-sm font-medium"
-              >
-                Contratar
-              </a>
-            </div>
-          ))}
+        <div>
+          <div class="mb-8 text-center">
+            <h2 class="font-orbitron text-2xl font-bold md:text-3xl">ERP + Facturacion</h2>
+            <p class="mt-2 text-muted-foreground">Gestion empresarial con Verifactu incluido</p>
+          </div>
+          <div class="grid gap-6 md:grid-cols-3">
+            {ERP_PLANS.map((plan, index) => (
+              <PricingCard
+                client:visible
+                name={plan.name}
+                tagline={plan.tagline}
+                badge={plan.badge}
+                monthlyPrice={plan.pricing.monthly?.price}
+                annualPrice={plan.pricing.annual?.price}
+                monthlyLink={plan.pricing.monthly?.stripeLink}
+                annualLink={plan.pricing.annual?.stripeLink}
+                features={plan.features}
+                delay={index}
+              />
+            ))}
+          </div>
+        </div>
+
+        <!-- Email Plans -->
+        <div>
+          <div class="mb-8 text-center">
+            <h2 class="font-orbitron text-2xl font-bold md:text-3xl">Correo Profesional</h2>
+            <p class="mt-2 text-muted-foreground">Email con tu dominio, servidor en Europa</p>
+          </div>
+          <div class="grid gap-6 md:grid-cols-3">
+            {EMAIL_PLANS.map((plan, index) => (
+              <PricingCard
+                client:visible
+                name={plan.name}
+                tagline={plan.tagline}
+                badge={plan.badge}
+                monthlyPrice={plan.pricing.monthly?.price}
+                annualPrice={plan.pricing.annual?.price}
+                monthlyLink={plan.pricing.monthly?.stripeLink}
+                annualLink={plan.pricing.annual?.stripeLink}
+                features={plan.features}
+                delay={index}
+              />
+            ))}
+          </div>
+        </div>
+
+        <!-- Pack Plans -->
+        <div>
+          <div class="mb-8 text-center">
+            <h2 class="font-orbitron text-2xl font-bold md:text-3xl">Packs Combinados</h2>
+            <p class="mt-2 text-muted-foreground">Ahorra combinando servicios</p>
+          </div>
+          <div class="grid gap-6 md:grid-cols-3">
+            {PACK_PLANS.map((plan, index) => (
+              <PricingCard
+                client:visible
+                name={plan.name}
+                tagline={plan.tagline}
+                badge={plan.badge}
+                monthlyPrice={plan.pricing.monthly?.price}
+                annualPrice={plan.pricing.annual?.price}
+                monthlyLink={plan.pricing.monthly?.stripeLink}
+                annualLink={plan.pricing.annual?.stripeLink}
+                features={plan.features}
+                delay={index}
+              />
+            ))}
+          </div>
         </div>
 
         <!-- Addons -->
-        <h3 class="text-xl font-semibold mb-4">Servicios Adicionales</h3>
-        <div class="grid md:grid-cols-2 gap-6">
-          {ADDON_SERVICES.map((addon) => (
-            <div class="rounded-2xl border border-border bg-card p-6">
-              <div class="flex justify-between items-start">
-                <div>
-                  <h4 class="text-lg font-bold">{addon.name}</h4>
-                  <p class="text-sm text-muted-foreground">{addon.description}</p>
-                </div>
-                <div class="text-right">
-                  <span class="text-2xl font-black">
-                    {addon.pricing.monthly?.price || addon.pricing.annual?.price}€
-                  </span>
-                  <span class="text-muted-foreground text-sm">
-                    /{addon.pricing.monthly?.period || addon.pricing.annual?.period}
-                  </span>
-                </div>
-              </div>
-            </div>
-          ))}
+        <div>
+          <div class="mb-8 text-center">
+            <h2 class="font-orbitron text-2xl font-bold md:text-3xl">Servicios Adicionales</h2>
+          </div>
+          <div class="mx-auto grid max-w-3xl gap-6 md:grid-cols-2">
+            {ADDON_SERVICES.map((addon, index) => (
+              <PricingCard
+                client:visible
+                name={addon.name}
+                tagline={addon.description}
+                monthlyPrice={addon.pricing.monthly?.price}
+                annualPrice={addon.pricing.annual?.price}
+                monthlyLink={addon.pricing.monthly?.stripeLink}
+                annualLink={addon.pricing.annual?.stripeLink}
+                features={addon.features}
+                delay={index}
+              />
+            ))}
+          </div>
         </div>
       </div>
 
       <!-- CTA -->
-      <div class="text-center">
-        <p class="text-muted-foreground mb-4">
-          Necesitas un proyecto personalizado?
-        </p>
-        <a
-          href="/contacto"
-          class="inline-flex items-center justify-center h-12 px-8 font-medium rounded-md bg-primary text-primary-foreground hover:bg-primary/80 transition-all"
-        >
-          Solicitar presupuesto
-        </a>
+      <div class="mt-20 text-center">
+        <div class="mx-auto max-w-2xl rounded-3xl border border-border/50 bg-gradient-to-br from-card/80 to-card/50 p-8 backdrop-blur-xl">
+          <h3 class="font-orbitron text-xl font-bold">Necesitas un proyecto personalizado?</h3>
+          <p class="mt-2 text-muted-foreground">
+            Hablemos de tu proyecto y te preparamos un presupuesto a medida.
+          </p>
+          <a
+            href="/contacto"
+            class="group relative mt-6 inline-flex items-center justify-center gap-2 overflow-hidden rounded-xl bg-gradient-to-r from-primary to-primary/80 px-8 py-4 font-medium text-primary-foreground transition-all duration-300 hover:shadow-lg hover:shadow-primary/25"
+          >
+            <span class="relative z-10">Solicitar presupuesto</span>
+            <div class="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/20 to-transparent transition-transform duration-700 group-hover:translate-x-full"></div>
+          </a>
+        </div>
       </div>
     </div>
   </section>

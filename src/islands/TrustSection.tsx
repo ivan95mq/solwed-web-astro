@@ -4,16 +4,16 @@ import { cn } from '../lib/utils';
 
 const stats = [
   { icon: Users, value: 150, suffix: '+', label: 'Clientes activos' },
-  { icon: Star, value: 98, suffix: '%', label: 'Satisfaccion' },
+  { icon: Star, value: 100, suffix: '%', label: 'Satisfaccion' },
   { icon: Award, value: 8, suffix: '', label: 'Anos de experiencia' },
   { icon: Shield, value: 99.9, suffix: '%', label: 'Uptime garantizado' },
 ];
 
 const partners = [
-  { name: 'BNI', code: 'BNI' },
-  { name: 'FEMEC', code: 'FEMEC' },
-  { name: 'NEXO', code: 'NEXO' },
-  { name: 'AJE', code: 'AJE' },
+  { name: 'BNI', code: 'BNI', logo: '/images/partners/bni.png' },
+  { name: 'FEMEC', code: 'FEMEC', logo: '/images/partners/femec.png' },
+  { name: 'NEXO', code: 'NEXO', logo: '/images/partners/nexo.png' },
+  { name: 'AJE', code: 'AJE', logo: '/images/partners/aje.png' },
 ];
 
 function AnimatedCounter({ value, suffix }: { value: number; suffix: string }) {
@@ -110,7 +110,11 @@ export function TrustSection() {
                 )}
                 style={{ animationDelay: `${index * 50}ms` }}
               >
-                <span className="text-lg font-bold text-muted-foreground">{partner.name}</span>
+                <img
+                  src={partner.logo}
+                  alt={partner.name}
+                  className="h-8 w-auto object-contain"
+                />
               </div>
             ))}
           </div>

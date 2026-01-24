@@ -1,0 +1,564 @@
+---
+import MarketingLayout from '../layouts/MarketingLayout.astro';
+---
+
+<MarketingLayout
+  title="Solicitud de Web | SOLWED - Cuestionario para tu proyecto"
+  description="Completa este formulario para ayudarnos a entender tu proyecto y crear la web perfecta para tu negocio."
+>
+  <section class="relative overflow-hidden py-16 md:py-24">
+    <!-- Background decorations -->
+    <div class="absolute left-0 top-1/4 h-96 w-96 -translate-x-1/2 rounded-full bg-primary/10 blur-3xl"></div>
+    <div class="absolute right-0 bottom-1/4 h-64 w-64 translate-x-1/2 rounded-full bg-primary/5 blur-3xl"></div>
+
+    <div class="container relative mx-auto px-4">
+      <!-- Header -->
+      <div class="mx-auto max-w-3xl text-center mb-12">
+        <h1 class="font-orbitron text-4xl font-bold md:text-5xl lg:text-6xl">
+          Cuestionario de <span class="bg-gradient-to-r from-primary to-primary/60 bg-clip-text text-transparent">proyecto web</span>
+        </h1>
+        <p class="mt-4 text-xl text-muted-foreground">
+          Completa este formulario para ayudarnos a entender tu proyecto y crear la web perfecta para tu negocio.
+        </p>
+      </div>
+
+      <div class="mx-auto max-w-3xl">
+        <form
+          id="solicitud-web-form"
+          class="form-modern space-y-8"
+          enctype="multipart/form-data"
+        >
+          <!-- Datos basicos -->
+          <div class="form-section">
+            <h2 class="form-section-title">Datos basicos</h2>
+
+            <div class="space-y-6">
+              <div class="form-group">
+                <label for="nombre" class="form-label">
+                  Nombre de la empresa / proyecto <span class="text-red-400">*</span>
+                </label>
+                <input
+                  type="text"
+                  id="nombre"
+                  name="nombre"
+                  required
+                  class="form-input"
+                  placeholder="Ej: Mi Empresa SL"
+                />
+              </div>
+
+              <div class="form-group">
+                <label for="email" class="form-label">
+                  Correo electronico <span class="text-red-400">*</span>
+                </label>
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  required
+                  class="form-input"
+                  placeholder="tu@email.com"
+                />
+              </div>
+
+              <div class="form-group">
+                <label for="telefono" class="form-label">
+                  Telefono de contacto
+                </label>
+                <input
+                  type="tel"
+                  id="telefono"
+                  name="telefono"
+                  class="form-input"
+                  placeholder="+34 600 000 000"
+                />
+              </div>
+            </div>
+          </div>
+
+          <!-- Dominios -->
+          <div class="form-section">
+            <h2 class="form-section-title">Dominios deseados</h2>
+            <p class="text-sm text-muted-foreground mb-6">Indica 2 opciones de dominio que te gustaria para tu web (comprobaremos su disponibilidad)</p>
+
+            <div class="grid gap-6 md:grid-cols-2">
+              <div class="form-group">
+                <label for="dominio1" class="form-label">
+                  Opcion de dominio 1 <span class="text-red-400">*</span>
+                </label>
+                <input
+                  type="text"
+                  id="dominio1"
+                  name="dominio1"
+                  required
+                  class="form-input"
+                  placeholder="miempresa.es"
+                />
+              </div>
+
+              <div class="form-group">
+                <label for="dominio2" class="form-label">
+                  Opcion de dominio 2 <span class="text-red-400">*</span>
+                </label>
+                <input
+                  type="text"
+                  id="dominio2"
+                  name="dominio2"
+                  required
+                  class="form-input"
+                  placeholder="miempresa.com"
+                />
+              </div>
+            </div>
+          </div>
+
+          <!-- Sobre tu negocio -->
+          <div class="form-section">
+            <h2 class="form-section-title">Sobre tu negocio</h2>
+
+            <div class="space-y-6">
+              <div class="form-group">
+                <label for="negocio" class="form-label">
+                  ¿Cual es tu negocio? ¿A que te dedicas? <span class="text-red-400">*</span>
+                </label>
+                <textarea
+                  id="negocio"
+                  name="negocio"
+                  required
+                  rows="3"
+                  class="form-input form-textarea"
+                  placeholder="Describe brevemente tu actividad empresarial..."
+                ></textarea>
+              </div>
+
+              <div class="form-group">
+                <label for="equipo" class="form-label">
+                  ¿Quienes sois? (miembros clave del equipo)
+                </label>
+                <textarea
+                  id="equipo"
+                  name="equipo"
+                  rows="2"
+                  class="form-input form-textarea"
+                  placeholder="Nombres y roles de las personas clave..."
+                ></textarea>
+              </div>
+
+              <div class="form-group">
+                <label for="puntos_fuertes" class="form-label">
+                  ¿Cuales son los puntos fuertes y virtudes de tu empresa?
+                </label>
+                <textarea
+                  id="puntos_fuertes"
+                  name="puntos_fuertes"
+                  rows="3"
+                  class="form-input form-textarea"
+                  placeholder="¿Que os diferencia de la competencia?..."
+                ></textarea>
+              </div>
+
+              <div class="form-group">
+                <label for="publico" class="form-label">
+                  ¿Cual es el publico potencial al que deseas comunicarte?
+                </label>
+                <textarea
+                  id="publico"
+                  name="publico"
+                  rows="3"
+                  class="form-input form-textarea"
+                  placeholder="Describe tu cliente ideal, segmentos de mercado..."
+                ></textarea>
+              </div>
+            </div>
+          </div>
+
+          <!-- Sobre la web -->
+          <div class="form-section">
+            <h2 class="form-section-title">Sobre la web</h2>
+
+            <div class="space-y-6">
+              <div class="form-group">
+                <label for="webs_inspiracion" class="form-label">
+                  Webs que te gustan (inspiracion estetica)
+                </label>
+                <textarea
+                  id="webs_inspiracion"
+                  name="webs_inspiracion"
+                  rows="2"
+                  class="form-input form-textarea"
+                  placeholder="Adjunta enlaces de webs cuyo diseno te guste..."
+                ></textarea>
+              </div>
+
+              <div class="form-group">
+                <label for="webs_competencia" class="form-label">
+                  URLs de tu competencia
+                </label>
+                <textarea
+                  id="webs_competencia"
+                  name="webs_competencia"
+                  rows="2"
+                  class="form-input form-textarea"
+                  placeholder="Webs de empresas similares a la tuya..."
+                ></textarea>
+              </div>
+
+              <div class="form-group">
+                <label for="estructura" class="form-label">
+                  ¿Tienes definida la estructura de contenidos de tu web?
+                </label>
+                <p class="form-helper mb-3">
+                  Indica las paginas que te gustaria incluir en tu web.
+                </p>
+                <textarea
+                  id="estructura"
+                  name="estructura"
+                  rows="3"
+                  class="form-input form-textarea"
+                  placeholder="Ej: Inicio, Sobre nosotros, Servicios, Blog, Contacto"
+                ></textarea>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label">
+                  ¿Que funciones te gustaria incluir en la web?
+                </label>
+                <div class="form-checkbox-group mt-3">
+                  <label class="form-checkbox-item">
+                    <input type="checkbox" name="funciones" value="blog" />
+                    <span>Blog</span>
+                  </label>
+                  <label class="form-checkbox-item">
+                    <input type="checkbox" name="funciones" value="formulario_contacto" />
+                    <span>Formulario de contacto</span>
+                  </label>
+                  <label class="form-checkbox-item">
+                    <input type="checkbox" name="funciones" value="reservas_online" />
+                    <span>Reservas online</span>
+                  </label>
+                  <label class="form-checkbox-item">
+                    <input type="checkbox" name="funciones" value="pasarela_pago" />
+                    <span>Pasarela de pago</span>
+                  </label>
+                  <label class="form-checkbox-item">
+                    <input type="checkbox" name="funciones" value="newsletter" />
+                    <span>Newsletter</span>
+                  </label>
+                  <label class="form-checkbox-item">
+                    <input type="checkbox" name="funciones" value="chat_vivo" />
+                    <span>Chat en vivo</span>
+                  </label>
+                  <label class="form-checkbox-item">
+                    <input type="checkbox" name="funciones" value="multiidioma" />
+                    <span>Multiidioma</span>
+                  </label>
+                  <label class="form-checkbox-item">
+                    <input type="checkbox" name="funciones" value="galeria_proyectos" />
+                    <span>Galeria de proyectos</span>
+                  </label>
+                  <label class="form-checkbox-item">
+                    <input type="checkbox" name="funciones" value="testimonios" />
+                    <span>Testimonios/Resenas</span>
+                  </label>
+                  <label class="form-checkbox-item">
+                    <input type="checkbox" name="funciones" value="mapa_ubicacion" />
+                    <span>Mapa de ubicacion</span>
+                  </label>
+                </div>
+                <div class="mt-3 space-y-3">
+                  <label class="form-checkbox-item">
+                    <input type="checkbox" id="funciones_otro_check" name="funciones" value="otro" />
+                    <span>Otro</span>
+                  </label>
+                  <input
+                    type="text"
+                    id="funciones_otro"
+                    name="funciones_otro"
+                    class="form-input"
+                    placeholder="Especifica otras funciones que necesites..."
+                  />
+                </div>
+              </div>
+
+              <!-- Textos preparados -->
+              <div class="form-group">
+                <label class="form-label">
+                  ¿Tienes los textos preparados?
+                </label>
+                <div class="form-radio-group mt-3">
+                  <label class="form-radio-item">
+                    <input type="radio" name="textos_preparados" value="si" />
+                    <span>Si, los tengo listos</span>
+                  </label>
+                  <label class="form-radio-item">
+                    <input type="radio" name="textos_preparados" value="parcial" />
+                    <span>Tengo algunos, pero necesito ayuda</span>
+                  </label>
+                  <label class="form-radio-item">
+                    <input type="radio" name="textos_preparados" value="no" />
+                    <span>No, necesito que los redacteis</span>
+                  </label>
+                </div>
+              </div>
+
+              <!-- Colores corporativos -->
+              <div class="form-group">
+                <label for="colores_corporativos" class="form-label">
+                  Colores corporativos
+                </label>
+                <input
+                  type="text"
+                  id="colores_corporativos"
+                  name="colores_corporativos"
+                  class="form-input"
+                  placeholder="Si no tienes logo, indica que colores prefieres"
+                />
+              </div>
+
+              <!-- Editar contenido -->
+              <div class="form-group">
+                <label class="form-label">
+                  ¿Necesitas poder editar el contenido tu mismo?
+                </label>
+                <div class="form-radio-group mt-3">
+                  <label class="form-radio-item">
+                    <input type="radio" name="editar_contenido" value="si" />
+                    <span>Si, quiero poder actualizar textos e imagenes</span>
+                  </label>
+                  <label class="form-radio-item">
+                    <input type="radio" name="editar_contenido" value="no" />
+                    <span>No, prefiero que lo gestioneis vosotros</span>
+                  </label>
+                </div>
+              </div>
+
+              <!-- Idiomas de la web -->
+              <div class="form-group">
+                <label class="form-label">
+                  Idiomas de la web
+                </label>
+                <div class="form-checkbox-group mt-3">
+                  <label class="form-checkbox-item">
+                    <input type="checkbox" name="idiomas" value="espanol" />
+                    <span>Espanol</span>
+                  </label>
+                  <label class="form-checkbox-item">
+                    <input type="checkbox" name="idiomas" value="ingles" />
+                    <span>Ingles</span>
+                  </label>
+                </div>
+                <div class="mt-3 space-y-3">
+                  <label class="form-checkbox-item">
+                    <input type="checkbox" id="idiomas_otros_check" name="idiomas" value="otros" />
+                    <span>Otros</span>
+                  </label>
+                  <input
+                    type="text"
+                    id="idiomas_otros"
+                    name="idiomas_otros"
+                    class="form-input"
+                    placeholder="Especifica otros idiomas..."
+                  />
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="aclaraciones" class="form-label">
+                  Aclaraciones adicionales
+                </label>
+                <textarea
+                  id="aclaraciones"
+                  name="aclaraciones"
+                  rows="4"
+                  class="form-input form-textarea"
+                  placeholder="Cualquier otra informacion que consideres util para la elaboracion de tu web..."
+                ></textarea>
+              </div>
+            </div>
+          </div>
+
+          <!-- Redes sociales -->
+          <div class="form-section">
+            <h2 class="form-section-title">Redes sociales y contacto</h2>
+
+            <div class="space-y-6">
+              <div class="form-group">
+                <label for="redes_sociales" class="form-label">
+                  Indicanos tus redes sociales y cuenta de Gmail
+                </label>
+                <textarea
+                  id="redes_sociales"
+                  name="redes_sociales"
+                  rows="3"
+                  class="form-input form-textarea"
+                  placeholder="Instagram: @tuempresa&#10;Facebook: facebook.com/tuempresa&#10;Gmail: tuempresa@gmail.com"
+                ></textarea>
+              </div>
+
+              <div class="form-group">
+                <label for="datos_contacto" class="form-label">
+                  Datos de contacto para mostrar en la web
+                </label>
+                <textarea
+                  id="datos_contacto"
+                  name="datos_contacto"
+                  rows="3"
+                  class="form-input form-textarea"
+                  placeholder="Email, telefono, direccion fisica..."
+                ></textarea>
+              </div>
+            </div>
+          </div>
+
+          <!-- Archivos -->
+          <div class="form-section">
+            <h2 class="form-section-title">Archivos y material grafico</h2>
+
+            <div class="space-y-6">
+              <div class="form-group">
+                <label for="logotipo" class="form-label">
+                  Logotipo o imagen de marca
+                </label>
+                <p class="form-helper mb-3">
+                  Si tienes un logotipo o imagen de marca, subelo aqui. Preferiblemente en formato PNG, SVG o PDF con fondo transparente.
+                </p>
+                <div class="form-file-upload">
+                  <input
+                    type="file"
+                    id="logotipo"
+                    name="logotipo"
+                    accept="image/*,.pdf,.svg"
+                    multiple
+                  />
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-muted-foreground mb-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
+                  </svg>
+                  <span class="text-sm text-muted-foreground">Arrastra archivos aqui o haz clic para seleccionar</span>
+                  <span class="text-xs text-muted-foreground mt-1">PNG, SVG, PDF (max 10MB)</span>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="proyectos" class="form-label">
+                  Fotos de tus proyectos o trabajos
+                </label>
+                <p class="form-helper mb-3">
+                  Sube fotografias de tus proyectos, productos o trabajos realizados. Estas imagenes pueden usarse en la web.
+                </p>
+                <div class="form-file-upload">
+                  <input
+                    type="file"
+                    id="proyectos"
+                    name="proyectos"
+                    accept="image/*"
+                    multiple
+                  />
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-muted-foreground mb-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                  </svg>
+                  <span class="text-sm text-muted-foreground">Arrastra imagenes aqui o haz clic para seleccionar</span>
+                  <span class="text-xs text-muted-foreground mt-1">Puedes seleccionar multiples archivos</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Submit -->
+          <div class="text-center">
+            <button
+              type="submit"
+              class="form-button form-button-primary w-full md:w-auto md:min-w-[300px]"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
+              </svg>
+              Enviar solicitud
+            </button>
+            <p class="text-sm text-muted-foreground mt-4">
+              Te contactaremos en menos de 24 horas para comentar tu proyecto.
+            </p>
+          </div>
+        </form>
+
+        <!-- Info adicional -->
+        <div class="mt-12 text-center">
+          <div class="inline-flex items-center gap-2 rounded-full border border-border/50 bg-card/50 px-6 py-3 backdrop-blur-sm">
+            <span class="text-sm text-muted-foreground">¿Tienes dudas?</span>
+            <a href="/contacto" class="text-sm font-medium text-primary hover:underline">Contacta con nosotros</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</MarketingLayout>
+
+<script>
+  const form = document.getElementById('solicitud-web-form') as HTMLFormElement;
+
+  form?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    const formData = new FormData(form);
+    const submitBtn = form.querySelector('button[type="submit"]') as HTMLButtonElement;
+    const originalText = submitBtn.innerHTML;
+
+    // Deshabilitar boton y mostrar estado de carga
+    submitBtn.disabled = true;
+    submitBtn.innerHTML = `
+      <svg class="animate-spin h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+      </svg>
+      Enviando...
+    `;
+
+    try {
+      const response = await fetch('/api/solicitud-web', {
+        method: 'POST',
+        body: formData,
+      });
+
+      const result = await response.json();
+
+      if (!response.ok) {
+        throw new Error(result.error || 'Error al enviar la solicitud');
+      }
+
+      // Mostrar mensaje de exito
+      submitBtn.innerHTML = `
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+        </svg>
+        Solicitud enviada
+      `;
+      submitBtn.style.background = 'linear-gradient(135deg, #22c55e 0%, #16a34a 100%)';
+
+      // Mostrar mensaje de confirmacion
+      const confirmacion = document.createElement('div');
+      confirmacion.className = 'mt-8 p-6 bg-green-500/10 border border-green-500/30 rounded-2xl text-center backdrop-blur-sm';
+      confirmacion.innerHTML = `
+        <div class="flex items-center justify-center gap-3 mb-2">
+          <div class="flex h-10 w-10 items-center justify-center rounded-full bg-green-500/20">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-green-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+            </svg>
+          </div>
+          <p class="text-lg font-semibold text-green-400">¡Solicitud enviada correctamente!</p>
+        </div>
+        <p class="text-muted-foreground">Te contactaremos en menos de 24 horas.</p>
+      `;
+      form.appendChild(confirmacion);
+
+      // Scroll al mensaje
+      confirmacion.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+    } catch (error) {
+      console.error('Error:', error);
+      submitBtn.disabled = false;
+      submitBtn.innerHTML = originalText;
+
+      const errorMsg = error instanceof Error ? error.message : 'Error desconocido';
+      alert(`Hubo un error: ${errorMsg}\n\nPor favor, intentalo de nuevo o contactanos directamente en hola@solwed.es`);
+    }
+  });
+</script>

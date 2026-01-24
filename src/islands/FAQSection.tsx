@@ -37,7 +37,7 @@ function FAQAccordionItem({
         className="flex w-full items-center justify-between gap-4 py-5 text-left transition-colors hover:text-primary"
         aria-expanded={isOpen}
       >
-        <span className="font-geist text-base font-semibold text-foreground md:text-lg">
+        <span className="font-orbitron text-base font-semibold text-foreground md:text-lg">
           {item.question}
         </span>
         <ChevronIcon isOpen={isOpen} />
@@ -81,7 +81,7 @@ export function FAQSection() {
           <span className="mb-4 inline-block rounded-full bg-primary/10 px-4 py-1.5 text-sm font-medium text-primary">
             Resolvemos tus dudas
           </span>
-          <h2 className="font-geist mb-4 text-3xl font-bold tracking-tight text-foreground md:text-4xl">
+          <h2 className="font-orbitron mb-4 text-3xl font-bold tracking-tight text-foreground md:text-4xl">
             Preguntas frecuentes
           </h2>
           <p className="text-lg text-muted-foreground">

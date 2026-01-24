@@ -17,7 +17,7 @@ const totalProjects = projects.length;
       <span class="mb-4 inline-block rounded-full bg-primary/10 px-4 py-1.5 text-sm font-medium text-primary">
         +{totalProjects} proyectos
       </span>
-      <h2 class="font-geist mb-4 text-3xl font-bold tracking-tight text-foreground md:text-4xl">
+      <h2 class="font-orbitron mb-4 text-3xl font-bold tracking-tight text-foreground md:text-4xl">
         Proyectos que <span class="text-gradient">inspiran</span>
       </h2>
       <p class="text-lg text-muted-foreground">
@@ -39,6 +39,8 @@ const totalProjects = projects.length;
           <img
             src={project.image}
             alt={project.title}
+            width="400"
+            height="400"
             class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
             loading="lazy"
           />
