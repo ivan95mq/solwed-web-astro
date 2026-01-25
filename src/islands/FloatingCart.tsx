@@ -51,7 +51,7 @@ export function FloatingCart() {
             exit={{ scale: 0, opacity: 0 }}
             transition={{ type: 'spring', stiffness: 300, damping: 20 }}
             onClick={() => setIsOpen(true)}
-            className="fixed bottom-6 left-6 z-50 flex h-14 w-14 items-center justify-center rounded-full bg-gradient-to-r from-primary to-primary/80 text-primary-foreground shadow-lg shadow-primary/25 transition-shadow hover:shadow-xl hover:shadow-primary/30"
+            className="fixed bottom-4 left-4 sm:bottom-6 sm:left-6 z-50 flex h-12 w-12 sm:h-14 sm:w-14 items-center justify-center rounded-full bg-gradient-to-r from-primary to-primary/80 text-primary-foreground shadow-lg shadow-primary/25 transition-shadow hover:shadow-xl hover:shadow-primary/30"
           >
             <ShoppingCart className="h-6 w-6" />
             <span className="absolute -right-1 -top-1 flex h-6 w-6 items-center justify-center rounded-full bg-foreground text-xs font-bold text-background">
@@ -84,7 +84,7 @@ export function FloatingCart() {
               className="fixed inset-0 z-50 flex flex-col bg-card md:inset-auto md:right-0 md:top-0 md:bottom-0 md:w-full md:max-w-md md:rounded-l-3xl md:shadow-2xl"
             >
               {/* Header */}
-              <div className="flex items-center justify-between border-b border-border/50 p-6">
+              <div className="flex items-center justify-between border-b border-border/50 p-4 sm:p-6">
                 <h2 className="font-orbitron text-lg font-bold text-foreground">
                   Tu carrito ({itemCount})
                 </h2>
@@ -97,7 +97,7 @@ export function FloatingCart() {
               </div>
 
               {/* Items */}
-              <div className="flex-1 overflow-y-auto p-6">
+              <div className="flex-1 overflow-y-auto p-4 sm:p-6">
                 {cart.length === 0 ? (
                   <p className="text-center text-muted-foreground">Tu carrito esta vacio</p>
                 ) : (
@@ -128,7 +128,7 @@ export function FloatingCart() {
 
               {/* Summary + Actions */}
               {cart.length > 0 && (
-                <div className="border-t border-border/50 p-6 space-y-5">
+                <div className="border-t border-border/50 p-4 sm:p-6 space-y-4 sm:space-y-5">
                   {/* Summary */}
                   <div className="rounded-xl bg-muted/30 p-4 space-y-2">
                     <p className="text-xs font-medium uppercase tracking-wider text-muted-foreground mb-3">

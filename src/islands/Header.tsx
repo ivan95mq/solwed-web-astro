@@ -4,6 +4,7 @@ import { cn } from '../lib/utils';
 
 const navItems = [
   { label: 'Precios', href: '/precios' },
+  { label: 'Dominios', href: '/dominios' },
   { label: 'Proyectos', href: '/proyectos' },
   { label: 'Contacto', href: '/contacto' },
 ];
@@ -52,7 +53,7 @@ export function Header() {
             href="/"
             className="flex-shrink-0 transition-transform hover:scale-105 duration-200"
           >
-            <Logo className="w-40 h-auto" />
+            <Logo className="w-32 sm:w-40 h-auto" />
           </a>
 
           {/* Desktop Navigation - Absolutely centered */}

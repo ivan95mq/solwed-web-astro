@@ -17,7 +17,7 @@ import FloatingCart from '../islands/FloatingCart';
 
     <div class="container relative mx-auto px-4">
       <div class="mx-auto max-w-4xl text-center mb-16">
-        <h1 class="font-orbitron text-4xl font-bold md:text-5xl lg:text-6xl">
+        <h1 class="font-orbitron text-3xl sm:text-4xl font-bold md:text-5xl lg:text-6xl">
           Precios <span class="bg-gradient-to-r from-primary to-primary/60 bg-clip-text text-transparent">transparentes</span>
         </h1>
         <p class="mt-4 text-xl text-muted-foreground">
@@ -50,7 +50,7 @@ import FloatingCart from '../islands/FloatingCart';
             <h2 class="font-orbitron text-2xl font-bold md:text-3xl">Web WordPress</h2>
             <p class="mt-2 text-muted-foreground">Hosting gestionado con soporte tecnico incluido</p>
           </div>
-          <div class="grid gap-6 md:grid-cols-3">
+          <div class="grid gap-4 sm:gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {HOSTING_PLANS.map((plan, index) => (
               <PricingCard
                 client:visible
@@ -75,7 +75,7 @@ import FloatingCart from '../islands/FloatingCart';
             <h2 class="font-orbitron text-2xl font-bold md:text-3xl">ERP + Facturacion</h2>
             <p class="mt-2 text-muted-foreground">Gestion empresarial con Verifactu incluido</p>
           </div>
-          <div class="grid gap-6 md:grid-cols-3">
+          <div class="grid gap-4 sm:gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {ERP_PLANS.map((plan, index) => (
               <PricingCard
                 client:visible
@@ -100,7 +100,7 @@ import FloatingCart from '../islands/FloatingCart';
             <h2 class="font-orbitron text-2xl font-bold md:text-3xl">Correo Profesional</h2>
             <p class="mt-2 text-muted-foreground">Email con tu dominio, servidor en Europa</p>
           </div>
-          <div class="grid gap-6 md:grid-cols-3">
+          <div class="grid gap-4 sm:gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {EMAIL_PLANS.map((plan, index) => (
               <PricingCard
                 client:visible
@@ -124,7 +124,7 @@ import FloatingCart from '../islands/FloatingCart';
           <div class="mb-8 text-center">
             <h2 class="font-orbitron text-2xl font-bold md:text-3xl">Servicios Adicionales</h2>
           </div>
-          <div class="mx-auto grid max-w-3xl gap-6 md:grid-cols-2">
+          <div class="mx-auto grid max-w-3xl gap-4 sm:gap-6 sm:grid-cols-2">
             {ADDON_SERVICES.map((addon, index) => (
               <PricingCard
                 client:visible
@@ -145,7 +145,7 @@ import FloatingCart from '../islands/FloatingCart';
 
       <!-- CTA -->
       <div class="mt-20 text-center">
-        <div class="mx-auto max-w-2xl rounded-3xl border border-border/50 bg-gradient-to-br from-card/80 to-card/50 p-8 backdrop-blur-xl">
+        <div class="mx-auto max-w-2xl rounded-3xl border border-border/50 bg-gradient-to-br from-card/80 to-card/50 p-4 sm:p-6 md:p-8 backdrop-blur-xl">
           <h3 class="font-orbitron text-xl font-bold">Necesitas un proyecto personalizado?</h3>
           <p class="mt-2 text-muted-foreground">
             Hablemos de tu proyecto y te preparamos un presupuesto a medida.

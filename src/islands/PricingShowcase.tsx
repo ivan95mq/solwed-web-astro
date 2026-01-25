@@ -18,7 +18,7 @@ export function PricingShowcase() {
             <p className="text-sm font-medium text-primary uppercase tracking-wider mb-3">
               Precios Transparentes
             </p>
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">
+            <h2 className="font-orbitron text-2xl sm:text-3xl md:text-4xl font-bold mb-4">
               Una inversion que{' '}
               <span className="text-gradient">se paga sola</span>
             </h2>
@@ -36,7 +36,7 @@ export function PricingShowcase() {
             )}
           >
             {/* Header with Toggle */}
-            <div className="relative p-8 bg-gradient-to-br from-primary/10 via-primary/5 to-transparent">
+            <div className="relative p-4 sm:p-6 md:p-8 bg-gradient-to-br from-primary/10 via-primary/5 to-transparent">
               <div className="flex flex-col sm:flex-row items-center justify-between gap-6">
                 <div className="flex items-center gap-3">
                   <h3 className="text-2xl font-bold">{STAR_PRODUCT.name}</h3>
@@ -78,13 +78,13 @@ export function PricingShowcase() {
             </div>
 
             {/* Content */}
-            <div className="p-8">
+            <div className="p-4 sm:p-6 md:p-8">
               <div className="grid md:grid-cols-2 gap-8 items-center">
                 {/* Left: Price */}
                 <div>
                   <div className="flex items-baseline gap-2 mb-2">
                     <span
-                      className="text-5xl md:text-6xl font-black animate-price-morph"
+                      className="text-4xl sm:text-5xl md:text-6xl font-black animate-price-morph"
                       key={billingPeriod}
                     >
                       {pricing?.price}€

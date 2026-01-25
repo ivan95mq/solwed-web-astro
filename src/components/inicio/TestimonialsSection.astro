@@ -134,7 +134,7 @@ const aggregateRatingSchema = {
         {/* Render reviews 3 times for infinite loop effect */}
         {[...displayReviews, ...displayReviews, ...displayReviews].map((review, index) => (
           <article
-            class="review-card group relative w-[280px] flex-shrink-0 rounded-2xl border border-white/10 bg-white/5 p-6 backdrop-blur-sm transition-all hover:border-yellow-400/30 hover:shadow-lg hover:shadow-yellow-400/5 md:w-[420px]"
+            class="review-card group relative w-[260px] sm:w-[300px] md:w-[420px] flex-shrink-0 rounded-2xl border border-white/10 bg-white/5 p-4 sm:p-6 backdrop-blur-sm transition-all hover:border-yellow-400/30 hover:shadow-lg hover:shadow-yellow-400/5"
           >
             {/* Stars */}
             <div class="mb-4 flex gap-0.5">
@@ -220,8 +220,20 @@ const aggregateRatingSchema = {
 
   .reviews-track {
     display: flex;
-    gap: 2rem;
+    gap: 1rem;
     animation: scroll 40s linear infinite;
+  }
+
+  @media (min-width: 640px) {
+    .reviews-track {
+      gap: 1.5rem;
+    }
+  }
+
+  @media (min-width: 768px) {
+    .reviews-track {
+      gap: 2rem;
+    }
   }
 
   .reviews-track:hover {

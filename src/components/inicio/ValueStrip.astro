@@ -32,18 +32,18 @@ const valueProps = [
       <p class="text-sm font-medium text-primary uppercase tracking-wider mb-3">
         Por que Todo en Uno
       </p>
-      <h2 class="text-3xl md:text-4xl font-bold">
+      <h2 class="font-orbitron text-2xl sm:text-3xl md:text-4xl font-bold">
         Un solo proveedor.{' '}
         <span class="text-gradient">Cero dolores de cabeza.</span>
       </h2>
     </div>
 
     <!-- Value Cards -->
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
       {valueProps.map((prop, index) => (
         <div
           class={cn(
-            'relative p-6 rounded-2xl',
+            'relative p-4 sm:p-6 rounded-2xl',
             'bg-card border border-border/50',
             'hover:border-primary/30 hover:shadow-lg hover:shadow-primary/5',
             'transition-all duration-300',

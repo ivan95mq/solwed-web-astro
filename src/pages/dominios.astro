@@ -1,0 +1,44 @@
+---
+import MarketingLayout from '../layouts/MarketingLayout.astro';
+import { DomainSearch } from '../islands/DomainSearch';
+import { NetworkGrid } from '../islands/NetworkGrid';
+
+export const prerender = false;
+---
+
+<MarketingLayout
+  title="Registra tu Dominio | SOLWED"
+  description="Busca y registra tu dominio al mejor precio. Comprobamos .es, .com, .org, .net, .dev y mas."
+>
+  <section class="relative py-24 md:py-32 overflow-hidden bg-[#0a0a0f]">
+    <!-- Dark gradient background -->
+    <div class="absolute inset-0 bg-gradient-to-b from-background via-[#0a0a0f] to-background"></div>
+
+    <!-- Radial glow in center -->
+    <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(252,211,77,0.08)_0%,transparent_70%)]"></div>
+
+    <!-- Network grid background -->
+    <NetworkGrid
+      client:load
+      className="pointer-events-none"
+      nodeCount={80}
+      connectionDistance={150}
+      nodeColor="#fcd34d"
+      lineColor="#fcd34d"
+      nodeSize={2}
+      speed={0.3}
+    />
+
+    <div class="container mx-auto px-4 relative z-10">
+      <h1 class="font-orbitron text-3xl sm:text-4xl md:text-5xl font-bold text-center">
+        Registra tu <span class="text-gradient">dominio</span>
+      </h1>
+      <p class="mt-4 text-lg sm:text-xl text-center text-muted-foreground">
+        Busca y registra tu dominio al mejor precio
+      </p>
+      <div class="mx-auto max-w-6xl mt-12">
+        <DomainSearch client:load />
+      </div>
+    </div>
+  </section>
+</MarketingLayout>

@@ -1,6 +1,7 @@
 ---
 import MarketingLayout from '../layouts/MarketingLayout.astro';
 import { StarHero } from '../islands/StarHero';
+import { DomainSearchBar } from '../islands/DomainSearchBar';
 import ValueStrip from '../components/inicio/ValueStrip.astro';
 import ServicesBento from '../components/inicio/ServicesBento.astro';
 import { PricingShowcase } from '../islands/PricingShowcase';
@@ -18,6 +19,9 @@ import FinalCTA from '../components/inicio/FinalCTA.astro';
 >
   <!-- Hero - Star product focus -->
   <StarHero client:load />
+
+  <!-- Domain search bar with particles -->
+  <DomainSearchBar client:load />
 
   <!-- Value proposition strip -->
   <ValueStrip />

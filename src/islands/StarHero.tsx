@@ -71,7 +71,7 @@ export function StarHero() {
       </div>
 
       {/* Subtle gradient accent */}
-      <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-primary/10 rounded-full blur-3xl opacity-40 -translate-y-1/3 translate-x-1/3 z-0" />
+      <div className="absolute top-0 right-0 w-[300px] h-[300px] sm:w-[400px] sm:h-[400px] lg:w-[600px] lg:h-[600px] bg-primary/10 rounded-full blur-3xl opacity-40 -translate-y-1/3 translate-x-1/3 z-0" />
 
       <div className="container mx-auto px-4 relative z-10">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
@@ -88,7 +88,7 @@ export function StarHero() {
 
             {/* Main Headline */}
             <BlurFade delay={0.2}>
-              <h1 className="hero-headline mb-6">
+              <h1 className="hero-headline font-orbitron mb-6">
                 Tu departamento digital
                 <br />
                 <span className="text-gradient">completo por 150€/mes</span>

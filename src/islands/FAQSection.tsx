@@ -49,7 +49,7 @@ function FAQAccordionItem({
         )}
       >
         <div className="overflow-hidden">
-          <p className="pb-5 pr-8 text-sm leading-relaxed text-muted-foreground md:text-base">
+          <p className="pb-5 pr-4 sm:pr-8 text-sm leading-relaxed text-muted-foreground md:text-base">
             {item.answer}
           </p>
         </div>
@@ -81,7 +81,7 @@ export function FAQSection() {
           <span className="mb-4 inline-block rounded-full bg-primary/10 px-4 py-1.5 text-sm font-medium text-primary">
             Resolvemos tus dudas
           </span>
-          <h2 className="font-orbitron mb-4 text-3xl font-bold tracking-tight text-foreground md:text-4xl">
+          <h2 className="font-orbitron mb-4 text-2xl sm:text-3xl font-bold tracking-tight text-foreground md:text-4xl">
             Preguntas frecuentes
           </h2>
           <p className="text-lg text-muted-foreground">
@@ -90,7 +90,7 @@ export function FAQSection() {
         </div>
 
         {/* FAQ Accordion */}
-        <div className="rounded-2xl border border-border bg-card p-6 md:p-8">
+        <div className="rounded-2xl border border-border bg-card p-4 sm:p-6 md:p-8">
           {FAQ_ITEMS.map((item) => (
             <FAQAccordionItem
               key={item.id}

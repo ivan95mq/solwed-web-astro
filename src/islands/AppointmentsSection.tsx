@@ -25,7 +25,7 @@ export function AppointmentsSection() {
             <MessageCircle className="w-4 h-4 text-primary" />
             <span className="text-sm font-medium">Agenda una cita</span>
           </div>
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">
+          <h2 className="font-orbitron text-2xl sm:text-3xl md:text-4xl font-bold mb-4">
             Reserva una <span className="text-gradient">cita</span>
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
@@ -47,9 +47,8 @@ export function AppointmentsSection() {
               <iframe
                 src={person.iframeSrc}
                 width="100%"
-                height="950"
                 frameBorder={0}
-                className="rounded-xl bg-white"
+                className="rounded-xl bg-white h-[600px] sm:h-[750px] md:h-[850px] lg:h-[950px]"
                 title={`Reservar cita con ${person.name}`}
               />
             </div>

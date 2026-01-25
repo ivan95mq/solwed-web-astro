@@ -17,7 +17,7 @@ const totalProjects = projects.length;
       <span class="mb-4 inline-block rounded-full bg-primary/10 px-4 py-1.5 text-sm font-medium text-primary">
         +{totalProjects} proyectos
       </span>
-      <h2 class="font-orbitron mb-4 text-3xl font-bold tracking-tight text-foreground md:text-4xl">
+      <h2 class="font-orbitron mb-4 text-2xl sm:text-3xl font-bold tracking-tight text-foreground md:text-4xl">
         Proyectos que <span class="text-gradient">inspiran</span>
       </h2>
       <p class="text-lg text-muted-foreground">
@@ -26,7 +26,7 @@ const totalProjects = projects.length;
     </div>
 
     <!-- Projects Grid -->
-    <div class="mx-auto grid max-w-6xl grid-cols-2 gap-3 sm:gap-4 md:grid-cols-4">
+    <div class="mx-auto grid max-w-6xl grid-cols-2 gap-2 sm:gap-3 md:gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
       {featuredProjects.map((project, index) => (
         <a
           href={`https://${project.domain}`}
