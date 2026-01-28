@@ -119,15 +119,17 @@ export class DonDominioAPI {
    * Parsea la respuesta de check domains
    */
   private parseCheckResponse(data: any): DomainCheckResult[] {
-    if (!data || !data.domains) {
+    // DonDominio devuelve: { success: true, responseData: { domains: [...] } }
+    if (!data || !data.success || !data.responseData || !data.responseData.domains) {
+      console.error('[DonDominio] Invalid response format:', data);
       return [];
     }
 
-    return data.domains.map((domain: any) => ({
+    return data.responseData.domains.map((domain: any) => ({
       domain: domain.name,
       available: domain.available === true,
-      price: domain.price?.register,
-      currency: domain.price?.currency || 'EUR',
+      price: domain.price || 0, // Precio directo en EUR
+      currency: domain.currency || 'EUR',
       tld: this.extractTLD(domain.name),
     }));
   }
@@ -136,13 +138,20 @@ export class DonDominioAPI {
    * Parsea la respuesta de pricing
    */
   private parsePricingResponse(data: any): DomainPricing[] {
-    if (!data || !data.pricing) {
+    // DonDominio devuelve: { success: true, responseData: { pricing: [...] } }
+    if (!data || !data.success || !data.responseData) {
+      console.error('[DonDominio] Invalid pricing response:', data);
       return [];
     }
 
-    return data.pricing.map((item: any) => ({
+    const pricing = data.responseData.pricing || data.responseData;
+    if (!Array.isArray(pricing)) {
+      return [];
+    }
+
+    return pricing.map((item: any) => ({
       tld: item.tld,
-      register: item.register || 0,
+      register: item.register || item.price || 0,
       transfer: item.transfer || 0,
       renew: item.renew || 0,
       currency: item.currency || 'EUR',
