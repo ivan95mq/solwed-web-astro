@@ -40,8 +40,8 @@ export const POST: APIRoute = async ({ request }) => {
       );
     }
 
-    // Lista de TLDs a verificar (limitado a 5 por restricción de DonDominio API)
-    const tlds = ['.es', '.com', '.net', '.org', '.io'];
+    // Lista de TLDs a verificar (limitado a 3 por restricción de DonDominio API)
+    const tlds = ['.es', '.com', '.net'];
 
     // Generar lista de dominios completos
     const domainsToCheck = tlds.map(tld => `${cleanDomain}${tld}`);
