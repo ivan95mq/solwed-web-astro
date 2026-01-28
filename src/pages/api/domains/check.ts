@@ -1,6 +1,8 @@
 import type { APIRoute } from 'astro';
 import { donDominioAPI } from '../../../lib/dondominio-api';
 
+export const prerender = false;
+
 /**
  * POST /api/domains/check
  * Verifica la disponibilidad de un dominio con múltiples TLDs

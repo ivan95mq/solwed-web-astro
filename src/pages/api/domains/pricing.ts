@@ -1,6 +1,8 @@
 import type { APIRoute } from 'astro';
 import { donDominioAPI } from '../../../lib/dondominio-api';
 
+export const prerender = false;
+
 /**
  * GET /api/domains/pricing?tlds=.com,.es,.net
  * Obtiene los precios de los TLDs especificados
