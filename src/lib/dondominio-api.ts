@@ -55,26 +55,34 @@ export class DonDominioAPI {
     }
 
     try {
-      // DonDominio usa form-data con apiuser y apipasswd
-      const formData = new URLSearchParams();
-      formData.append('apiuser', this.apiUser);
-      formData.append('apipasswd', this.apiPass);
-      formData.append('domain', domains.join(','));
+      // Check domains one at a time due to DonDominio API limitations
+      const results: DomainCheckResult[] = [];
 
-      const response = await fetch(`${this.baseUrl}/domain/check`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded',
-        },
-        body: formData.toString(),
-      });
+      for (const domain of domains) {
+        const formData = new URLSearchParams();
+        formData.append('apiuser', this.apiUser);
+        formData.append('apipasswd', this.apiPass);
+        formData.append('domain', domain);
 
-      if (!response.ok) {
-        throw new Error(`DonDominio API error: ${response.status}`);
+        const response = await fetch(`${this.baseUrl}/domain/check`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+          },
+          body: formData.toString(),
+        });
+
+        if (!response.ok) {
+          console.error(`[DonDominio] HTTP error ${response.status} for ${domain}`);
+          continue;
+        }
+
+        const data = await response.json();
+        const domainResults = this.parseCheckResponse(data);
+        results.push(...domainResults);
       }
 
-      const data = await response.json();
-      return this.parseCheckResponse(data);
+      return results.length > 0 ? results : this.simulateCheck(domains);
     } catch (error) {
       console.error('[DonDominio] Error checking domains:', error);
       // Fallback a simulación en caso de error
