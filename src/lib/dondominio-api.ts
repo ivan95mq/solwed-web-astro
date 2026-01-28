@@ -34,9 +34,11 @@ export class DonDominioAPI {
   private baseUrl: string;
 
   constructor() {
-    this.apiUser = import.meta.env.DONDOMINIO_API_USER || '';
-    this.apiPass = import.meta.env.DONDOMINIO_API_PASS || '';
-    this.baseUrl = import.meta.env.DONDOMINIO_API_URL || 'https://simple-api.dondominio.net';
+    // Use process.env for server-side runtime access (SSR)
+    // import.meta.env only works at build time
+    this.apiUser = process.env.DONDOMINIO_API_USER || import.meta.env.DONDOMINIO_API_USER || '';
+    this.apiPass = process.env.DONDOMINIO_API_PASS || import.meta.env.DONDOMINIO_API_PASS || '';
+    this.baseUrl = process.env.DONDOMINIO_API_URL || import.meta.env.DONDOMINIO_API_URL || 'https://simple-api.dondominio.net';
 
     if (!this.apiUser || !this.apiPass) {
       console.warn('[DonDominio] API credentials not configured. Domain checks will be simulated.');
