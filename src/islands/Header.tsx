@@ -1,6 +1,7 @@
 import { useState } from 'react';
-import { Menu, X } from 'lucide-react';
+import { Menu, X, Download, ExternalLink } from 'lucide-react';
 import { cn } from '../lib/utils';
+import { motion } from 'motion/react';
 
 const navItems = [
   { label: 'Precios', href: '/precios' },
@@ -47,7 +48,7 @@ export function Header() {
   return (
     <header className="sticky top-0 z-50 w-full bg-background/80 backdrop-blur-md border-b border-border/50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="relative flex h-14 items-center justify-between">
+        <div className="relative flex h-16 items-center justify-between gap-4">
           {/* Logo */}
           <a
             href="/"
@@ -57,7 +58,7 @@ export function Header() {
           </a>
 
           {/* Desktop Navigation - Absolutely centered */}
-          <nav className="hidden md:flex items-center gap-1 absolute left-1/2 -translate-x-1/2">
+          <nav className="hidden md:flex items-center gap-2 absolute left-1/2 -translate-x-1/2">
             {navItems.map((item) => (
               <a
                 key={item.href}
@@ -74,8 +75,39 @@ export function Header() {
           </nav>
 
           {/* Right side actions */}
-          <div className="flex items-center gap-2">
-            {/* Mobile menu button */}
+          <div className="flex items-center gap-3">
+            {/* Action buttons - visible on tablet and up */}
+            <motion.a
+              href="https://www.nanosystems.it/public/download/Supremo.exe"
+              className="hidden sm:inline-flex items-center gap-2 px-4 py-2 text-sm font-medium rounded-full bg-primary text-primary-foreground hover:bg-primary/90"
+              download
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              <Download className="h-4 w-4" />
+              <span className="hidden md:inline">Descargar asistente</span>
+              <span className="md:hidden">Asistente</span>
+            </motion.a>
+            <motion.a
+              href="https://portal.solwed.es"
+              className="inline-flex items-center gap-2 px-3 py-2 text-sm font-medium rounded-full border-2 border-primary/50 hover:border-primary relative overflow-hidden group"
+              target="_blank"
+              rel="noopener noreferrer"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              <motion.div
+                className="absolute inset-0 bg-primary/10"
+                initial={{ scale: 0, opacity: 0 }}
+                whileHover={{ scale: 1, opacity: 1 }}
+                transition={{ duration: 0.3 }}
+              />
+              <ExternalLink className="h-4 w-4 relative z-10" />
+              <span className="relative z-10 hidden sm:inline">Portal del Cliente</span>
+              <span className="relative z-10 sm:hidden">Portal</span>
+            </motion.a>
+
+            {/* Mobile menu button - only on mobile */}
             <button
               type="button"
               className="md:hidden p-2 rounded-md hover:bg-muted/50 transition-colors"
@@ -105,6 +137,27 @@ export function Header() {
                   {item.label}
                 </a>
               ))}
+              <motion.a
+                href="https://www.nanosystems.it/public/download/Supremo.exe"
+                className="flex items-center justify-center gap-2 px-4 py-3 text-sm font-medium rounded-lg bg-primary text-primary-foreground hover:bg-primary/90"
+                download
+                onClick={() => setMobileMenuOpen(false)}
+                whileTap={{ scale: 0.95 }}
+              >
+                <Download className="h-4 w-4" />
+                <span>Descargar asistente</span>
+              </motion.a>
+              <motion.a
+                href="https://portal.solwed.es"
+                className="flex items-center justify-center gap-2 px-4 py-3 text-sm font-medium rounded-lg border-2 border-primary/50 hover:border-primary"
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => setMobileMenuOpen(false)}
+                whileTap={{ scale: 0.95 }}
+              >
+                <ExternalLink className="h-4 w-4" />
+                <span>Portal del Cliente</span>
+              </motion.a>
             </nav>
           </div>
         )}
